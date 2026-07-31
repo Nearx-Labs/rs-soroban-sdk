@@ -1263,12 +1263,31 @@ pub mod prng;
 pub mod storage;
 pub mod token;
 mod vec;
-pub use address::{Address, Executable};
+pub use address::Address;
 pub use bytes::{Bytes, BytesN};
 pub use map::Map;
 pub use muxed_address::MuxedAddress;
 pub use symbol::Symbol;
 pub use vec::Vec;
+
+// Defined here rather than alongside `Address` so that the name the contract
+// spec knows it by — the module path of where it is defined — is the path it is
+// publicly reachable at. Commented rather than documented because a doc comment
+// on a contract type is written into the spec of every contract using it.
+#[cfg_attr(
+    feature = "experimental_spec_shaking_v2",
+    contracttype(crate_path = "crate")
+)]
+#[cfg_attr(
+    not(feature = "experimental_spec_shaking_v2"),
+    contracttype(crate_path = "crate", export = false)
+)]
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub enum Executable {
+    Wasm(BytesN<32>),
+    StellarAsset,
+    Account,
+}
 mod num;
 pub use num::{Duration, Timepoint, I256, U256};
 mod string;

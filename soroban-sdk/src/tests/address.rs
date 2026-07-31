@@ -1,8 +1,7 @@
 use crate::{self as soroban_sdk};
 use sha2::{Digest, Sha256};
 use soroban_sdk::{
-    address::Executable, contract, testutils::Address as _, Address, Bytes, BytesN, Env, String,
-    TryIntoVal,
+    contract, testutils::Address as _, Address, Bytes, BytesN, Env, Executable, String, TryIntoVal,
 };
 
 #[contract]

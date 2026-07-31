@@ -1,8 +1,8 @@
 use core::{cmp::Ordering, convert::Infallible, fmt::Debug};
 
 use super::{
-    contracttype, env::internal::AddressObject, env::internal::Env as _, unwrap::UnwrapInfallible,
-    Bytes, BytesN, ConversionError, Env, IntoVal, String, TryFromVal, TryIntoVal, Val, Vec,
+    env::internal::AddressObject, env::internal::Env as _, unwrap::UnwrapInfallible, Bytes,
+    ConversionError, Env, Executable, IntoVal, String, TryFromVal, TryIntoVal, Val, Vec,
 };
 
 #[cfg(any(test, feature = "hazmat-address"))]
@@ -212,21 +212,6 @@ impl TryFrom<Address> for AccountId {
     fn try_from(v: Address) -> Result<Self, Self::Error> {
         (&v).try_into()
     }
-}
-
-#[cfg_attr(
-    feature = "experimental_spec_shaking_v2",
-    contracttype(crate_path = "crate")
-)]
-#[cfg_attr(
-    not(feature = "experimental_spec_shaking_v2"),
-    contracttype(crate_path = "crate", export = false)
-)]
-#[derive(Clone, Debug, PartialEq, Eq)]
-pub enum Executable {
-    Wasm(BytesN<32>),
-    StellarAsset,
-    Account,
 }
 
 impl Address {

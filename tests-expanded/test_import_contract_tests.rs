@@ -6,7 +6,7 @@ extern crate core;
 use core::prelude::rust_2021::*;
 use soroban_sdk::{contract, contracterror, contractimpl, Address, Env};
 mod addcontract {
-    pub const WASM: &[u8] = b"\x00asm\x01\x00\x00\x00\x01\x14\x04`\x01~\x01~`\x02\x7f~\x00`\x02~~\x01~`\x00\x00\x02\r\x02\x01i\x010\x00\x00\x01i\x01_\x00\x00\x03\x08\x07\x01\x01\x02\x03\x02\x02\x03\x05\x03\x01\x00\x11\x06!\x04\x7f\x01A\x80\x80\xc0\x00\x0b\x7f\x00A\x9c\x80\xc0\x00\x0b\x7f\x00A\x9c\x80\xc0\x00\x0b\x7f\x00A\xa0\x80\xc0\x00\x0b\x07I\x07\x06memory\x02\x00\x03add\x00\x04\x08safe_add\x00\x06\x0csafe_add_two\x00\x07\x01_\x03\x01\n__data_end\x03\x02\x0b__heap_base\x03\x03\n\xf3\x04\x07]\x02\x01\x7f\x01~\x02@\x02@ \x01\xa7A\xff\x01q\"\x02A\xc0\x00F\r\x00\x02@ \x02A\x06F\r\x00B\x01!\x03B\x83\x90\x80\x80\x80\x01!\x01\x0c\x02\x0b \x01B\x08\x88!\x01B\x00!\x03\x0c\x01\x0bB\x00!\x03 \x01\x10\x80\x80\x80\x80\x00!\x01\x0b \x00 \x037\x03\x00 \x00 \x017\x03\x08\x0b;\x00\x02@\x02@ \x01B\xff\xff\xff\xff\xff\xff\xff\xff\x00V\r\x00 \x01B\x08\x86B\x06\x84!\x01\x0c\x01\x0b \x01\x10\x81\x80\x80\x80\x00!\x01\x0b \x00B\x007\x03\x00 \x00 \x017\x03\x08\x0b\x8e\x01\x01\x01\x7f#\x80\x80\x80\x80\x00A\x10k\"\x02$\x80\x80\x80\x80\x00 \x02 \x00\x10\x82\x80\x80\x80\x00\x02@\x02@\x02@ \x02(\x02\x00A\x01F\r\x00 \x02)\x03\x08!\x00 \x02 \x01\x10\x82\x80\x80\x80\x00 \x02(\x02\x00A\x01F\r\x00 \x02)\x03\x08\"\x01 \x00|\"\x00 \x01T\r\x01 \x02 \x00\x10\x83\x80\x80\x80\x00 \x02(\x02\x00A\x01G\r\x02\x0b\x00\x0b\x10\x85\x80\x80\x80\x00\x00\x0b \x02)\x03\x08!\x00 \x02A\x10j$\x80\x80\x80\x80\x00 \x00\x0b\t\x00\x10\x88\x80\x80\x80\x00\x00\x0b\x9b\x01\x02\x01\x7f\x01~#\x80\x80\x80\x80\x00A\x10k\"\x02$\x80\x80\x80\x80\x00 \x02 \x00\x10\x82\x80\x80\x80\x00\x02@ \x02(\x02\x00A\x01F\r\x00 \x02)\x03\x08!\x03 \x02 \x01\x10\x82\x80\x80\x80\x00 \x02(\x02\x00A\x01F\r\x00 \x02)\x03\x08!\x00A\x00-\x00\x80\x80\xc0\x80\x00\x1aB\x83\x80\x80\x80\x10!\x01\x02@ \x00 \x03|\"\x03 \x00T\r\x00 \x02 \x03\x10\x83\x80\x80\x80\x00 \x02(\x02\x00A\x01F\r\x01 \x02)\x03\x08!\x01\x0b \x02A\x10j$\x80\x80\x80\x80\x00 \x01\x0f\x0b\x00\x0b\x9b\x01\x02\x01\x7f\x01~#\x80\x80\x80\x80\x00A\x10k\"\x02$\x80\x80\x80\x80\x00 \x02 \x00\x10\x82\x80\x80\x80\x00\x02@ \x02(\x02\x00A\x01F\r\x00 \x02)\x03\x08!\x03 \x02 \x01\x10\x82\x80\x80\x80\x00 \x02(\x02\x00A\x01F\r\x00 \x02)\x03\x08!\x00A\x00-\x00\x8e\x80\xc0\x80\x00\x1aB\x83\x80\x80\x80\x10!\x01\x02@ \x00 \x03|\"\x03 \x00T\r\x00 \x02 \x03\x10\x83\x80\x80\x80\x00 \x02(\x02\x00A\x01F\r\x01 \x02)\x03\x08!\x01\x0b \x02A\x10j$\x80\x80\x80\x80\x00 \x01\x0f\x0b\x00\x0b\x03\x00\x00\x0b\x0b%\x01\x00A\x80\x80\xc0\x00\x0b\x1cSpEcV1\xd22/\\\x8c\x82\xb2GSpEcV1\xa3z\xb5\xbfR\xaeOu\x00\xeb\x1a\x0econtractspecv0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x03add\x00\x00\x00\x00\x02\x00\x00\x00\x00\x00\x00\x00\x01a\x00\x00\x00\x00\x00\x00\x06\x00\x00\x00\x00\x00\x00\x00\x01b\x00\x00\x00\x00\x00\x00\x06\x00\x00\x00\x01\x00\x00\x00\x06\x00\x00\x00\x04\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x13test_add_u64::Error\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x08Overflow\x00\x00\x00\x01\x00\x00\x00\x04\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x15test_add_u64::MyError\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x08Overflow\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x08safe_add\x00\x00\x00\x02\x00\x00\x00\x00\x00\x00\x00\x01a\x00\x00\x00\x00\x00\x00\x06\x00\x00\x00\x00\x00\x00\x00\x01b\x00\x00\x00\x00\x00\x00\x06\x00\x00\x00\x01\x00\x00\x03\xe9\x00\x00\x00\x06\x00\x00\x00\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0csafe_add_two\x00\x00\x00\x02\x00\x00\x00\x00\x00\x00\x00\x01a\x00\x00\x00\x00\x00\x00\x06\x00\x00\x00\x00\x00\x00\x00\x01b\x00\x00\x00\x00\x00\x00\x06\x00\x00\x00\x01\x00\x00\x03\xe9\x00\x00\x00\x06\x00\x00\x07\xd0\x00\x00\x00\x15test_add_u64::MyError\x00\x00\x00\x00\x00\x00\x02\x00\x00\x00\xe3Context of a single authorized call performed by an address.\n\nCustom account contracts that implement `__check_auth` special function\nreceive a list of `Context` values corresponding to all the calls that\nneed to be authorized.\x00\x00\x00\x00\x00\x00\x00\x00\x1asoroban_sdk::auth::Context\x00\x00\x00\x00\x00\x03\x00\x00\x00\x01\x00\x00\x00\x14Contract invocation.\x00\x00\x00\x08Contract\x00\x00\x00\x01\x00\x00\x07\xd0\x00\x00\x00\"soroban_sdk::auth::ContractContext\x00\x00\x00\x00\x00\x01\x00\x00\x00=Contract that has a constructor with no arguments is created.\x00\x00\x00\x00\x00\x00\x14CreateContractHostFn\x00\x00\x00\x01\x00\x00\x07\xd0\x00\x00\x00.soroban_sdk::auth::CreateContractHostFnContext\x00\x00\x00\x00\x00\x01\x00\x00\x00DContract that has a constructor with 1 or more arguments is created.\x00\x00\x00\x1cCreateContractWithCtorHostFn\x00\x00\x00\x01\x00\x00\x07\xd0\x00\x00\x00=soroban_sdk::auth::CreateContractWithConstructorHostFnContext\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\xbdAuthorization context of a single contract call.\n\nThis struct corresponds to a `require_auth_for_args` call for an address\nfrom `contract` function with `fn_name` name and `args` arguments.\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\"soroban_sdk::auth::ContractContext\x00\x00\x00\x00\x00\x03\x00\x00\x00\x00\x00\x00\x00\x04args\x00\x00\x03\xea\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x08contract\x00\x00\x00\x13\x00\x00\x00\x00\x00\x00\x00\x07fn_name\x00\x00\x00\x00\x11\x00\x00\x00\x02\x00\x00\x00_Contract executable used for creating a new contract and used in\n`CreateContractHostFnContext`.\x00\x00\x00\x00\x00\x00\x00\x00%soroban_sdk::auth::ContractExecutable\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x04Wasm\x00\x00\x00\x01\x00\x00\x03\xee\x00\x00\x00 \x00\x00\x00\x01\x00\x00\x008Value of contract node in InvokerContractAuthEntry tree.\x00\x00\x00\x00\x00\x00\x00(soroban_sdk::auth::SubContractInvocation\x00\x00\x00\x02\x00\x00\x00\x00\x00\x00\x00\x07context\x00\x00\x00\x07\xd0\x00\x00\x00\"soroban_sdk::auth::ContractContext\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0fsub_invocations\x00\x00\x00\x03\xea\x00\x00\x07\xd0\x00\x00\x00+soroban_sdk::auth::InvokerContractAuthEntry\x00\x00\x00\x00\x02\x00\x00\x01/A node in the tree of authorizations performed on behalf of the current\ncontract as invoker of the contracts deeper in the call stack.\n\nThis is used as an argument of `authorize_as_current_contract` host function.\n\nThis tree corresponds `require_auth[_for_args]` calls on behalf of the\ncurrent contract.\x00\x00\x00\x00\x00\x00\x00\x00+soroban_sdk::auth::InvokerContractAuthEntry\x00\x00\x00\x00\x03\x00\x00\x00\x01\x00\x00\x00\x12Invoke a contract.\x00\x00\x00\x00\x00\x08Contract\x00\x00\x00\x01\x00\x00\x07\xd0\x00\x00\x00(soroban_sdk::auth::SubContractInvocation\x00\x00\x00\x01\x00\x00\x005Create a contract passing 0 arguments to constructor.\x00\x00\x00\x00\x00\x00\x14CreateContractHostFn\x00\x00\x00\x01\x00\x00\x07\xd0\x00\x00\x00.soroban_sdk::auth::CreateContractHostFnContext\x00\x00\x00\x00\x00\x01\x00\x00\x00=Create a contract passing 0 or more arguments to constructor.\x00\x00\x00\x00\x00\x00\x1cCreateContractWithCtorHostFn\x00\x00\x00\x01\x00\x00\x07\xd0\x00\x00\x00=soroban_sdk::auth::CreateContractWithConstructorHostFnContext\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00vAuthorization context for `create_contract` host function that creates a\nnew contract on behalf of authorizer address.\x00\x00\x00\x00\x00\x00\x00\x00\x00.soroban_sdk::auth::CreateContractHostFnContext\x00\x00\x00\x00\x00\x02\x00\x00\x00\x00\x00\x00\x00\nexecutable\x00\x00\x00\x00\x07\xd0\x00\x00\x00%soroban_sdk::auth::ContractExecutable\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x04salt\x00\x00\x03\xee\x00\x00\x00 \x00\x00\x00\x01\x00\x00\x00\xd6Authorization context for `create_contract` host function that creates a\nnew contract on behalf of authorizer address.\nThis is the same as `CreateContractHostFnContext`, but also has\ncontract constructor arguments.\x00\x00\x00\x00\x00\x00\x00\x00\x00=soroban_sdk::auth::CreateContractWithConstructorHostFnContext\x00\x00\x00\x00\x00\x00\x03\x00\x00\x00\x00\x00\x00\x00\x10constructor_args\x00\x00\x03\xea\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\nexecutable\x00\x00\x00\x00\x07\xd0\x00\x00\x00%soroban_sdk::auth::ContractExecutable\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x04salt\x00\x00\x03\xee\x00\x00\x00 \x00\x00\x00\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 soroban_sdk::address::Executable\x00\x00\x00\x03\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x04Wasm\x00\x00\x00\x01\x00\x00\x03\xee\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0cStellarAsset\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x07Account\x00\x00\x1e\x11contractenvmetav0\x00\x00\x00\x00\x00\x00\x00\x1b\x00\x00\x00\x00\x00O\x0econtractmetav0\x00\x00\x00\x00\x00\x00\x00\x05rsver\x00\x00\x00\x00\x00\x00\x061.91.0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x12rssdk_spec_shaking\x00\x00\x00\x00\x00\x012\x00\x00\x00";
+    pub const WASM: &[u8] = b"\x00asm\x01\x00\x00\x00\x01\x14\x04`\x01~\x01~`\x02\x7f~\x00`\x02~~\x01~`\x00\x00\x02\r\x02\x01i\x010\x00\x00\x01i\x01_\x00\x00\x03\x08\x07\x01\x01\x02\x03\x02\x02\x03\x05\x03\x01\x00\x11\x06!\x04\x7f\x01A\x80\x80\xc0\x00\x0b\x7f\x00A\x9c\x80\xc0\x00\x0b\x7f\x00A\x9c\x80\xc0\x00\x0b\x7f\x00A\xa0\x80\xc0\x00\x0b\x07I\x07\x06memory\x02\x00\x03add\x00\x04\x08safe_add\x00\x06\x0csafe_add_two\x00\x07\x01_\x03\x01\n__data_end\x03\x02\x0b__heap_base\x03\x03\n\xf3\x04\x07]\x02\x01\x7f\x01~\x02@\x02@ \x01\xa7A\xff\x01q\"\x02A\xc0\x00F\r\x00\x02@ \x02A\x06F\r\x00B\x01!\x03B\x83\x90\x80\x80\x80\x01!\x01\x0c\x02\x0b \x01B\x08\x88!\x01B\x00!\x03\x0c\x01\x0bB\x00!\x03 \x01\x10\x80\x80\x80\x80\x00!\x01\x0b \x00 \x037\x03\x00 \x00 \x017\x03\x08\x0b;\x00\x02@\x02@ \x01B\xff\xff\xff\xff\xff\xff\xff\xff\x00V\r\x00 \x01B\x08\x86B\x06\x84!\x01\x0c\x01\x0b \x01\x10\x81\x80\x80\x80\x00!\x01\x0b \x00B\x007\x03\x00 \x00 \x017\x03\x08\x0b\x8e\x01\x01\x01\x7f#\x80\x80\x80\x80\x00A\x10k\"\x02$\x80\x80\x80\x80\x00 \x02 \x00\x10\x82\x80\x80\x80\x00\x02@\x02@\x02@ \x02(\x02\x00A\x01F\r\x00 \x02)\x03\x08!\x00 \x02 \x01\x10\x82\x80\x80\x80\x00 \x02(\x02\x00A\x01F\r\x00 \x02)\x03\x08\"\x01 \x00|\"\x00 \x01T\r\x01 \x02 \x00\x10\x83\x80\x80\x80\x00 \x02(\x02\x00A\x01G\r\x02\x0b\x00\x0b\x10\x85\x80\x80\x80\x00\x00\x0b \x02)\x03\x08!\x00 \x02A\x10j$\x80\x80\x80\x80\x00 \x00\x0b\t\x00\x10\x88\x80\x80\x80\x00\x00\x0b\x9b\x01\x02\x01\x7f\x01~#\x80\x80\x80\x80\x00A\x10k\"\x02$\x80\x80\x80\x80\x00 \x02 \x00\x10\x82\x80\x80\x80\x00\x02@ \x02(\x02\x00A\x01F\r\x00 \x02)\x03\x08!\x03 \x02 \x01\x10\x82\x80\x80\x80\x00 \x02(\x02\x00A\x01F\r\x00 \x02)\x03\x08!\x00A\x00-\x00\x80\x80\xc0\x80\x00\x1aB\x83\x80\x80\x80\x10!\x01\x02@ \x00 \x03|\"\x03 \x00T\r\x00 \x02 \x03\x10\x83\x80\x80\x80\x00 \x02(\x02\x00A\x01F\r\x01 \x02)\x03\x08!\x01\x0b \x02A\x10j$\x80\x80\x80\x80\x00 \x01\x0f\x0b\x00\x0b\x9b\x01\x02\x01\x7f\x01~#\x80\x80\x80\x80\x00A\x10k\"\x02$\x80\x80\x80\x80\x00 \x02 \x00\x10\x82\x80\x80\x80\x00\x02@ \x02(\x02\x00A\x01F\r\x00 \x02)\x03\x08!\x03 \x02 \x01\x10\x82\x80\x80\x80\x00 \x02(\x02\x00A\x01F\r\x00 \x02)\x03\x08!\x00A\x00-\x00\x8e\x80\xc0\x80\x00\x1aB\x83\x80\x80\x80\x10!\x01\x02@ \x00 \x03|\"\x03 \x00T\r\x00 \x02 \x03\x10\x83\x80\x80\x80\x00 \x02(\x02\x00A\x01F\r\x01 \x02)\x03\x08!\x01\x0b \x02A\x10j$\x80\x80\x80\x80\x00 \x01\x0f\x0b\x00\x0b\x03\x00\x00\x0b\x0b%\x01\x00A\x80\x80\xc0\x00\x0b\x1cSpEcV1\xd22/\\\x8c\x82\xb2GSpEcV1\xa3z\xb5\xbfR\xaeOu\x00\xe3\x1a\x0econtractspecv0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x03add\x00\x00\x00\x00\x02\x00\x00\x00\x00\x00\x00\x00\x01a\x00\x00\x00\x00\x00\x00\x06\x00\x00\x00\x00\x00\x00\x00\x01b\x00\x00\x00\x00\x00\x00\x06\x00\x00\x00\x01\x00\x00\x00\x06\x00\x00\x00\x04\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x13test_add_u64::Error\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x08Overflow\x00\x00\x00\x01\x00\x00\x00\x04\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x15test_add_u64::MyError\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x08Overflow\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x08safe_add\x00\x00\x00\x02\x00\x00\x00\x00\x00\x00\x00\x01a\x00\x00\x00\x00\x00\x00\x06\x00\x00\x00\x00\x00\x00\x00\x01b\x00\x00\x00\x00\x00\x00\x06\x00\x00\x00\x01\x00\x00\x03\xe9\x00\x00\x00\x06\x00\x00\x00\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0csafe_add_two\x00\x00\x00\x02\x00\x00\x00\x00\x00\x00\x00\x01a\x00\x00\x00\x00\x00\x00\x06\x00\x00\x00\x00\x00\x00\x00\x01b\x00\x00\x00\x00\x00\x00\x06\x00\x00\x00\x01\x00\x00\x03\xe9\x00\x00\x00\x06\x00\x00\x07\xd0\x00\x00\x00\x15test_add_u64::MyError\x00\x00\x00\x00\x00\x00\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x17soroban_sdk::Executable\x00\x00\x00\x00\x03\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x04Wasm\x00\x00\x00\x01\x00\x00\x03\xee\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0cStellarAsset\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x07Account\x00\x00\x00\x00\x02\x00\x00\x00\xe3Context of a single authorized call performed by an address.\n\nCustom account contracts that implement `__check_auth` special function\nreceive a list of `Context` values corresponding to all the calls that\nneed to be authorized.\x00\x00\x00\x00\x00\x00\x00\x00\x1asoroban_sdk::auth::Context\x00\x00\x00\x00\x00\x03\x00\x00\x00\x01\x00\x00\x00\x14Contract invocation.\x00\x00\x00\x08Contract\x00\x00\x00\x01\x00\x00\x07\xd0\x00\x00\x00\"soroban_sdk::auth::ContractContext\x00\x00\x00\x00\x00\x01\x00\x00\x00=Contract that has a constructor with no arguments is created.\x00\x00\x00\x00\x00\x00\x14CreateContractHostFn\x00\x00\x00\x01\x00\x00\x07\xd0\x00\x00\x00.soroban_sdk::auth::CreateContractHostFnContext\x00\x00\x00\x00\x00\x01\x00\x00\x00DContract that has a constructor with 1 or more arguments is created.\x00\x00\x00\x1cCreateContractWithCtorHostFn\x00\x00\x00\x01\x00\x00\x07\xd0\x00\x00\x00=soroban_sdk::auth::CreateContractWithConstructorHostFnContext\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\xbdAuthorization context of a single contract call.\n\nThis struct corresponds to a `require_auth_for_args` call for an address\nfrom `contract` function with `fn_name` name and `args` arguments.\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\"soroban_sdk::auth::ContractContext\x00\x00\x00\x00\x00\x03\x00\x00\x00\x00\x00\x00\x00\x04args\x00\x00\x03\xea\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x08contract\x00\x00\x00\x13\x00\x00\x00\x00\x00\x00\x00\x07fn_name\x00\x00\x00\x00\x11\x00\x00\x00\x02\x00\x00\x00_Contract executable used for creating a new contract and used in\n`CreateContractHostFnContext`.\x00\x00\x00\x00\x00\x00\x00\x00%soroban_sdk::auth::ContractExecutable\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x04Wasm\x00\x00\x00\x01\x00\x00\x03\xee\x00\x00\x00 \x00\x00\x00\x01\x00\x00\x008Value of contract node in InvokerContractAuthEntry tree.\x00\x00\x00\x00\x00\x00\x00(soroban_sdk::auth::SubContractInvocation\x00\x00\x00\x02\x00\x00\x00\x00\x00\x00\x00\x07context\x00\x00\x00\x07\xd0\x00\x00\x00\"soroban_sdk::auth::ContractContext\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0fsub_invocations\x00\x00\x00\x03\xea\x00\x00\x07\xd0\x00\x00\x00+soroban_sdk::auth::InvokerContractAuthEntry\x00\x00\x00\x00\x02\x00\x00\x01/A node in the tree of authorizations performed on behalf of the current\ncontract as invoker of the contracts deeper in the call stack.\n\nThis is used as an argument of `authorize_as_current_contract` host function.\n\nThis tree corresponds `require_auth[_for_args]` calls on behalf of the\ncurrent contract.\x00\x00\x00\x00\x00\x00\x00\x00+soroban_sdk::auth::InvokerContractAuthEntry\x00\x00\x00\x00\x03\x00\x00\x00\x01\x00\x00\x00\x12Invoke a contract.\x00\x00\x00\x00\x00\x08Contract\x00\x00\x00\x01\x00\x00\x07\xd0\x00\x00\x00(soroban_sdk::auth::SubContractInvocation\x00\x00\x00\x01\x00\x00\x005Create a contract passing 0 arguments to constructor.\x00\x00\x00\x00\x00\x00\x14CreateContractHostFn\x00\x00\x00\x01\x00\x00\x07\xd0\x00\x00\x00.soroban_sdk::auth::CreateContractHostFnContext\x00\x00\x00\x00\x00\x01\x00\x00\x00=Create a contract passing 0 or more arguments to constructor.\x00\x00\x00\x00\x00\x00\x1cCreateContractWithCtorHostFn\x00\x00\x00\x01\x00\x00\x07\xd0\x00\x00\x00=soroban_sdk::auth::CreateContractWithConstructorHostFnContext\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00vAuthorization context for `create_contract` host function that creates a\nnew contract on behalf of authorizer address.\x00\x00\x00\x00\x00\x00\x00\x00\x00.soroban_sdk::auth::CreateContractHostFnContext\x00\x00\x00\x00\x00\x02\x00\x00\x00\x00\x00\x00\x00\nexecutable\x00\x00\x00\x00\x07\xd0\x00\x00\x00%soroban_sdk::auth::ContractExecutable\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x04salt\x00\x00\x03\xee\x00\x00\x00 \x00\x00\x00\x01\x00\x00\x00\xd6Authorization context for `create_contract` host function that creates a\nnew contract on behalf of authorizer address.\nThis is the same as `CreateContractHostFnContext`, but also has\ncontract constructor arguments.\x00\x00\x00\x00\x00\x00\x00\x00\x00=soroban_sdk::auth::CreateContractWithConstructorHostFnContext\x00\x00\x00\x00\x00\x00\x03\x00\x00\x00\x00\x00\x00\x00\x10constructor_args\x00\x00\x03\xea\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\nexecutable\x00\x00\x00\x00\x07\xd0\x00\x00\x00%soroban_sdk::auth::ContractExecutable\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x04salt\x00\x00\x03\xee\x00\x00\x00 \x00\x1e\x11contractenvmetav0\x00\x00\x00\x00\x00\x00\x00\x1b\x00\x00\x00\x00\x00O\x0econtractmetav0\x00\x00\x00\x00\x00\x00\x00\x05rsver\x00\x00\x00\x00\x00\x00\x061.91.0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x12rssdk_spec_shaking\x00\x00\x00\x00\x00\x012\x00\x00\x00";
     pub trait Contract {
         fn add(env: soroban_sdk::Env, a: u64, b: u64) -> u64;
         fn safe_add(env: soroban_sdk::Env, a: u64, b: u64) -> Result<u64, Error>;
@@ -2681,6 +2681,625 @@ mod addcontract {
             }
         }
     };
+    pub enum Executable {
+        Wasm(soroban_sdk::BytesN<32>),
+        StellarAsset,
+        Account,
+    }
+    #[automatically_derived]
+    impl ::core::fmt::Debug for Executable {
+        #[inline]
+        fn fmt(&self, f: &mut ::core::fmt::Formatter) -> ::core::fmt::Result {
+            match self {
+                Executable::Wasm(__self_0) => {
+                    ::core::fmt::Formatter::debug_tuple_field1_finish(f, "Wasm", &__self_0)
+                }
+                Executable::StellarAsset => ::core::fmt::Formatter::write_str(f, "StellarAsset"),
+                Executable::Account => ::core::fmt::Formatter::write_str(f, "Account"),
+            }
+        }
+    }
+    #[automatically_derived]
+    impl ::core::clone::Clone for Executable {
+        #[inline]
+        fn clone(&self) -> Executable {
+            match self {
+                Executable::Wasm(__self_0) => {
+                    Executable::Wasm(::core::clone::Clone::clone(__self_0))
+                }
+                Executable::StellarAsset => Executable::StellarAsset,
+                Executable::Account => Executable::Account,
+            }
+        }
+    }
+    #[automatically_derived]
+    impl ::core::cmp::Eq for Executable {
+        #[inline]
+        #[doc(hidden)]
+        #[coverage(off)]
+        fn assert_receiver_is_total_eq(&self) -> () {
+            let _: ::core::cmp::AssertParamIsEq<soroban_sdk::BytesN<32>>;
+        }
+    }
+    #[automatically_derived]
+    impl ::core::marker::StructuralPartialEq for Executable {}
+    #[automatically_derived]
+    impl ::core::cmp::PartialEq for Executable {
+        #[inline]
+        fn eq(&self, other: &Executable) -> bool {
+            let __self_discr = ::core::intrinsics::discriminant_value(self);
+            let __arg1_discr = ::core::intrinsics::discriminant_value(other);
+            __self_discr == __arg1_discr
+                && match (self, other) {
+                    (Executable::Wasm(__self_0), Executable::Wasm(__arg1_0)) => {
+                        __self_0 == __arg1_0
+                    }
+                    _ => true,
+                }
+        }
+    }
+    #[automatically_derived]
+    impl ::core::cmp::Ord for Executable {
+        #[inline]
+        fn cmp(&self, other: &Executable) -> ::core::cmp::Ordering {
+            let __self_discr = ::core::intrinsics::discriminant_value(self);
+            let __arg1_discr = ::core::intrinsics::discriminant_value(other);
+            match ::core::cmp::Ord::cmp(&__self_discr, &__arg1_discr) {
+                ::core::cmp::Ordering::Equal => match (self, other) {
+                    (Executable::Wasm(__self_0), Executable::Wasm(__arg1_0)) => {
+                        ::core::cmp::Ord::cmp(__self_0, __arg1_0)
+                    }
+                    _ => ::core::cmp::Ordering::Equal,
+                },
+                cmp => cmp,
+            }
+        }
+    }
+    #[automatically_derived]
+    impl ::core::cmp::PartialOrd for Executable {
+        #[inline]
+        fn partial_cmp(&self, other: &Executable) -> ::core::option::Option<::core::cmp::Ordering> {
+            let __self_discr = ::core::intrinsics::discriminant_value(self);
+            let __arg1_discr = ::core::intrinsics::discriminant_value(other);
+            match (self, other) {
+                (Executable::Wasm(__self_0), Executable::Wasm(__arg1_0)) => {
+                    ::core::cmp::PartialOrd::partial_cmp(__self_0, __arg1_0)
+                }
+                _ => ::core::cmp::PartialOrd::partial_cmp(&__self_discr, &__arg1_discr),
+            }
+        }
+    }
+    impl Executable {
+        #[doc(hidden)]
+        pub const fn spec_type_name() -> &'static str {
+            "test_import_contract::addcontract::Executable"
+        }
+    }
+    pub static __SPEC_XDR_TYPE_EXECUTABLE: [u8; Executable::__SPEC_XDR_REF.const_xdr_len()] =
+        Executable::spec_xdr();
+    impl Executable {
+        const __SPEC_XDR_REF: soroban_sdk::xdr::ScSpecEntryRef<'static> =
+            soroban_sdk::xdr::ScSpecEntryRef::UdtUnionV0(soroban_sdk::xdr::ScSpecUdtUnionV0Ref {
+                doc: soroban_sdk::xdr::StringMRef::new(b""),
+                lib: soroban_sdk::xdr::StringMRef::new(b""),
+                name: soroban_sdk::xdr::StringMRef::new_str(Executable::spec_type_name()),
+                cases: soroban_sdk::xdr::VecMRef::new(&[
+                    soroban_sdk::xdr::ScSpecUdtUnionCaseV0Ref::TupleV0(
+                        soroban_sdk::xdr::ScSpecUdtUnionCaseTupleV0Ref {
+                            doc: soroban_sdk::xdr::StringMRef::new(b""),
+                            name: soroban_sdk::xdr::StringMRef::new(b"Wasm"),
+                            type_: soroban_sdk::xdr::VecMRef::new(&[
+                                soroban_sdk::xdr::ScSpecTypeDefRef::BytesN(
+                                    soroban_sdk::xdr::ScSpecTypeBytesN { n: 32u32 },
+                                ),
+                            ]),
+                        },
+                    ),
+                    soroban_sdk::xdr::ScSpecUdtUnionCaseV0Ref::VoidV0(
+                        soroban_sdk::xdr::ScSpecUdtUnionCaseVoidV0Ref {
+                            doc: soroban_sdk::xdr::StringMRef::new(b""),
+                            name: soroban_sdk::xdr::StringMRef::new(b"StellarAsset"),
+                        },
+                    ),
+                    soroban_sdk::xdr::ScSpecUdtUnionCaseV0Ref::VoidV0(
+                        soroban_sdk::xdr::ScSpecUdtUnionCaseVoidV0Ref {
+                            doc: soroban_sdk::xdr::StringMRef::new(b""),
+                            name: soroban_sdk::xdr::StringMRef::new(b"Account"),
+                        },
+                    ),
+                ]),
+            });
+        pub const fn spec_xdr() -> [u8; Executable::__SPEC_XDR_REF.const_xdr_len()] {
+            Executable::__SPEC_XDR_REF.const_to_xdr()
+        }
+        pub const fn spec_id() -> [u8; 8usize] {
+            let xdr = Self::spec_xdr();
+            let hash = soroban_sdk::reexports_for_macros::sha2_const::Sha256::new()
+                .update(&xdr)
+                .finalize();
+            [
+                hash[0], hash[1], hash[2], hash[3], hash[4], hash[5], hash[6], hash[7],
+            ]
+        }
+    }
+    impl soroban_sdk::SpecShakingMarker for Executable {
+        #[doc(hidden)]
+        #[inline(always)]
+        fn spec_shaking_marker() {
+            <soroban_sdk::BytesN<32> as soroban_sdk::SpecShakingMarker>::spec_shaking_marker();
+        }
+    }
+    impl soroban_sdk::TryFromVal<soroban_sdk::Env, soroban_sdk::Val> for Executable {
+        type Error = soroban_sdk::ConversionError;
+        #[inline(always)]
+        fn try_from_val(
+            env: &soroban_sdk::Env,
+            val: &soroban_sdk::Val,
+        ) -> Result<Self, soroban_sdk::ConversionError> {
+            use soroban_sdk::{EnvBase, TryFromVal, TryIntoVal};
+            const CASES: &'static [&'static str] = &["Wasm", "StellarAsset", "Account"];
+            let vec: soroban_sdk::Vec<soroban_sdk::Val> = val.try_into_val(env)?;
+            let mut iter = vec.try_iter();
+            let discriminant: soroban_sdk::Symbol = iter
+                .next()
+                .ok_or(soroban_sdk::ConversionError)??
+                .try_into_val(env)
+                .map_err(|_| soroban_sdk::ConversionError)?;
+            Ok(
+                match u32::from(env.symbol_index_in_strs(discriminant.to_symbol_val(), CASES)?)
+                    as usize
+                {
+                    0 => {
+                        if iter.len() > 1usize {
+                            return Err(soroban_sdk::ConversionError);
+                        }
+                        Self::Wasm(
+                            iter.next()
+                                .ok_or(soroban_sdk::ConversionError)??
+                                .try_into_val(env)?,
+                        )
+                    }
+                    1 => {
+                        if iter.len() > 0 {
+                            return Err(soroban_sdk::ConversionError);
+                        }
+                        Self::StellarAsset
+                    }
+                    2 => {
+                        if iter.len() > 0 {
+                            return Err(soroban_sdk::ConversionError);
+                        }
+                        Self::Account
+                    }
+                    _ => Err(soroban_sdk::ConversionError {})?,
+                },
+            )
+        }
+    }
+    impl soroban_sdk::TryFromVal<soroban_sdk::Env, Executable> for soroban_sdk::Val {
+        type Error = soroban_sdk::ConversionError;
+        #[inline(always)]
+        fn try_from_val(
+            env: &soroban_sdk::Env,
+            val: &Executable,
+        ) -> Result<Self, soroban_sdk::ConversionError> {
+            use soroban_sdk::{TryFromVal, TryIntoVal};
+            match val {
+                Executable::Wasm(ref value0) => {
+                    let tup: (soroban_sdk::Val, soroban_sdk::Val) = (
+                        soroban_sdk::Symbol::try_from_val(env, &"Wasm")?.to_val(),
+                        value0.try_into_val(env)?,
+                    );
+                    tup.try_into_val(env).map_err(Into::into)
+                }
+                Executable::StellarAsset => {
+                    let tup: (soroban_sdk::Val,) =
+                        (soroban_sdk::Symbol::try_from_val(env, &"StellarAsset")?.to_val(),);
+                    tup.try_into_val(env).map_err(Into::into)
+                }
+                Executable::Account => {
+                    let tup: (soroban_sdk::Val,) =
+                        (soroban_sdk::Symbol::try_from_val(env, &"Account")?.to_val(),);
+                    tup.try_into_val(env).map_err(Into::into)
+                }
+            }
+        }
+    }
+    impl soroban_sdk::TryFromVal<soroban_sdk::Env, &Executable> for soroban_sdk::Val {
+        type Error = soroban_sdk::ConversionError;
+        #[inline(always)]
+        fn try_from_val(
+            env: &soroban_sdk::Env,
+            val: &&Executable,
+        ) -> Result<Self, soroban_sdk::ConversionError> {
+            <_ as soroban_sdk::TryFromVal<soroban_sdk::Env, Executable>>::try_from_val(env, *val)
+        }
+    }
+    impl soroban_sdk::TryFromVal<soroban_sdk::Env, soroban_sdk::xdr::ScVec> for Executable {
+        type Error = soroban_sdk::xdr::Error;
+        #[inline(always)]
+        fn try_from_val(
+            env: &soroban_sdk::Env,
+            val: &soroban_sdk::xdr::ScVec,
+        ) -> Result<Self, soroban_sdk::xdr::Error> {
+            use soroban_sdk::xdr::Validate;
+            use soroban_sdk::TryIntoVal;
+            let vec = val;
+            let mut iter = vec.iter();
+            let discriminant: soroban_sdk::xdr::ScSymbol = iter
+                .next()
+                .ok_or(soroban_sdk::xdr::Error::Invalid)?
+                .clone()
+                .try_into()
+                .map_err(|_| soroban_sdk::xdr::Error::Invalid)?;
+            let discriminant_name: &str = &discriminant.to_utf8_string()?;
+            Ok(match discriminant_name {
+                "Wasm" => {
+                    if iter.len() > 1usize {
+                        return Err(soroban_sdk::xdr::Error::Invalid);
+                    }
+                    let rv0: soroban_sdk::Val = iter
+                        .next()
+                        .ok_or(soroban_sdk::xdr::Error::Invalid)?
+                        .try_into_val(env)
+                        .map_err(|_| soroban_sdk::xdr::Error::Invalid)?;
+                    Self::Wasm(
+                        rv0.try_into_val(env)
+                            .map_err(|_| soroban_sdk::xdr::Error::Invalid)?,
+                    )
+                }
+                "StellarAsset" => {
+                    if iter.len() > 0 {
+                        return Err(soroban_sdk::xdr::Error::Invalid);
+                    }
+                    Self::StellarAsset
+                }
+                "Account" => {
+                    if iter.len() > 0 {
+                        return Err(soroban_sdk::xdr::Error::Invalid);
+                    }
+                    Self::Account
+                }
+                _ => Err(soroban_sdk::xdr::Error::Invalid)?,
+            })
+        }
+    }
+    impl soroban_sdk::TryFromVal<soroban_sdk::Env, soroban_sdk::xdr::ScVal> for Executable {
+        type Error = soroban_sdk::xdr::Error;
+        #[inline(always)]
+        fn try_from_val(
+            env: &soroban_sdk::Env,
+            val: &soroban_sdk::xdr::ScVal,
+        ) -> Result<Self, soroban_sdk::xdr::Error> {
+            if let soroban_sdk::xdr::ScVal::Vec(Some(vec)) = val {
+                <_ as soroban_sdk::TryFromVal<_, _>>::try_from_val(env, vec)
+            } else {
+                Err(soroban_sdk::xdr::Error::Invalid)
+            }
+        }
+    }
+    impl TryFrom<&Executable> for soroban_sdk::xdr::ScVec {
+        type Error = soroban_sdk::xdr::Error;
+        #[inline(always)]
+        fn try_from(val: &Executable) -> Result<Self, soroban_sdk::xdr::Error> {
+            extern crate alloc;
+            Ok(match val {
+                Executable::Wasm(value0) => (
+                    soroban_sdk::xdr::ScSymbol(
+                        "Wasm"
+                            .try_into()
+                            .map_err(|_| soroban_sdk::xdr::Error::Invalid)?,
+                    ),
+                    value0,
+                )
+                    .try_into()
+                    .map_err(|_| soroban_sdk::xdr::Error::Invalid)?,
+                Executable::StellarAsset => {
+                    let symbol = soroban_sdk::xdr::ScSymbol(
+                        "StellarAsset"
+                            .try_into()
+                            .map_err(|_| soroban_sdk::xdr::Error::Invalid)?,
+                    );
+                    let val = soroban_sdk::xdr::ScVal::Symbol(symbol);
+                    (val,)
+                        .try_into()
+                        .map_err(|_| soroban_sdk::xdr::Error::Invalid)?
+                }
+                Executable::Account => {
+                    let symbol = soroban_sdk::xdr::ScSymbol(
+                        "Account"
+                            .try_into()
+                            .map_err(|_| soroban_sdk::xdr::Error::Invalid)?,
+                    );
+                    let val = soroban_sdk::xdr::ScVal::Symbol(symbol);
+                    (val,)
+                        .try_into()
+                        .map_err(|_| soroban_sdk::xdr::Error::Invalid)?
+                }
+            })
+        }
+    }
+    impl TryFrom<Executable> for soroban_sdk::xdr::ScVec {
+        type Error = soroban_sdk::xdr::Error;
+        #[inline(always)]
+        fn try_from(val: Executable) -> Result<Self, soroban_sdk::xdr::Error> {
+            (&val).try_into()
+        }
+    }
+    impl TryFrom<&Executable> for soroban_sdk::xdr::ScVal {
+        type Error = soroban_sdk::xdr::Error;
+        #[inline(always)]
+        fn try_from(val: &Executable) -> Result<Self, soroban_sdk::xdr::Error> {
+            Ok(soroban_sdk::xdr::ScVal::Vec(Some(val.try_into()?)))
+        }
+    }
+    impl TryFrom<Executable> for soroban_sdk::xdr::ScVal {
+        type Error = soroban_sdk::xdr::Error;
+        #[inline(always)]
+        fn try_from(val: Executable) -> Result<Self, soroban_sdk::xdr::Error> {
+            (&val).try_into()
+        }
+    }
+    const _: () = {
+        use soroban_sdk::testutils::arbitrary::arbitrary;
+        use soroban_sdk::testutils::arbitrary::std;
+        pub enum ArbitraryExecutable {
+            Wasm(
+                <soroban_sdk::BytesN<
+                    32,
+                > as soroban_sdk::testutils::arbitrary::SorobanArbitrary>::Prototype,
+            ),
+            StellarAsset,
+            Account,
+        }
+        #[automatically_derived]
+        impl ::core::fmt::Debug for ArbitraryExecutable {
+            #[inline]
+            fn fmt(&self, f: &mut ::core::fmt::Formatter) -> ::core::fmt::Result {
+                match self {
+                    ArbitraryExecutable::Wasm(__self_0) => {
+                        ::core::fmt::Formatter::debug_tuple_field1_finish(f, "Wasm", &__self_0)
+                    }
+                    ArbitraryExecutable::StellarAsset => {
+                        ::core::fmt::Formatter::write_str(f, "StellarAsset")
+                    }
+                    ArbitraryExecutable::Account => ::core::fmt::Formatter::write_str(f, "Account"),
+                }
+            }
+        }
+        #[automatically_derived]
+        impl ::core::clone::Clone for ArbitraryExecutable {
+            #[inline]
+            fn clone(&self) -> ArbitraryExecutable {
+                match self {
+                    ArbitraryExecutable::Wasm(__self_0) => {
+                        ArbitraryExecutable::Wasm(::core::clone::Clone::clone(__self_0))
+                    }
+                    ArbitraryExecutable::StellarAsset => ArbitraryExecutable::StellarAsset,
+                    ArbitraryExecutable::Account => ArbitraryExecutable::Account,
+                }
+            }
+        }
+        #[automatically_derived]
+        impl ::core::cmp::Eq for ArbitraryExecutable {
+            #[inline]
+            #[doc(hidden)]
+            #[coverage(off)]
+            fn assert_receiver_is_total_eq(&self) -> () {
+                let _: ::core::cmp::AssertParamIsEq<
+                    <soroban_sdk::BytesN<
+                        32,
+                    > as soroban_sdk::testutils::arbitrary::SorobanArbitrary>::Prototype,
+                >;
+            }
+        }
+        #[automatically_derived]
+        impl ::core::marker::StructuralPartialEq for ArbitraryExecutable {}
+        #[automatically_derived]
+        impl ::core::cmp::PartialEq for ArbitraryExecutable {
+            #[inline]
+            fn eq(&self, other: &ArbitraryExecutable) -> bool {
+                let __self_discr = ::core::intrinsics::discriminant_value(self);
+                let __arg1_discr = ::core::intrinsics::discriminant_value(other);
+                __self_discr == __arg1_discr
+                    && match (self, other) {
+                        (
+                            ArbitraryExecutable::Wasm(__self_0),
+                            ArbitraryExecutable::Wasm(__arg1_0),
+                        ) => __self_0 == __arg1_0,
+                        _ => true,
+                    }
+            }
+        }
+        #[automatically_derived]
+        impl ::core::cmp::Ord for ArbitraryExecutable {
+            #[inline]
+            fn cmp(&self, other: &ArbitraryExecutable) -> ::core::cmp::Ordering {
+                let __self_discr = ::core::intrinsics::discriminant_value(self);
+                let __arg1_discr = ::core::intrinsics::discriminant_value(other);
+                match ::core::cmp::Ord::cmp(&__self_discr, &__arg1_discr) {
+                    ::core::cmp::Ordering::Equal => match (self, other) {
+                        (
+                            ArbitraryExecutable::Wasm(__self_0),
+                            ArbitraryExecutable::Wasm(__arg1_0),
+                        ) => ::core::cmp::Ord::cmp(__self_0, __arg1_0),
+                        _ => ::core::cmp::Ordering::Equal,
+                    },
+                    cmp => cmp,
+                }
+            }
+        }
+        #[automatically_derived]
+        impl ::core::cmp::PartialOrd for ArbitraryExecutable {
+            #[inline]
+            fn partial_cmp(
+                &self,
+                other: &ArbitraryExecutable,
+            ) -> ::core::option::Option<::core::cmp::Ordering> {
+                let __self_discr = ::core::intrinsics::discriminant_value(self);
+                let __arg1_discr = ::core::intrinsics::discriminant_value(other);
+                match (self, other) {
+                    (ArbitraryExecutable::Wasm(__self_0), ArbitraryExecutable::Wasm(__arg1_0)) => {
+                        ::core::cmp::PartialOrd::partial_cmp(__self_0, __arg1_0)
+                    }
+                    _ => ::core::cmp::PartialOrd::partial_cmp(&__self_discr, &__arg1_discr),
+                }
+            }
+        }
+        const _: () = {
+            #[allow(non_upper_case_globals)]
+            const RECURSIVE_COUNT_ArbitraryExecutable: ::std::thread::LocalKey<
+                std::cell::Cell<u32>,
+            > = {
+                #[inline]
+                fn __init() -> std::cell::Cell<u32> {
+                    std::cell::Cell::new(0)
+                }
+                unsafe {
+                    ::std::thread::LocalKey::new(
+                        const {
+                            if ::std::mem::needs_drop::<std::cell::Cell<u32>>() {
+                                |init| {
+                                    #[thread_local]
+                                    static VAL: ::std::thread::local_impl::LazyStorage<
+                                        std::cell::Cell<u32>,
+                                        (),
+                                    > = ::std::thread::local_impl::LazyStorage::new();
+                                    VAL.get_or_init(init, __init)
+                                }
+                            } else {
+                                |init| {
+                                    #[thread_local]
+                                    static VAL: ::std::thread::local_impl::LazyStorage<
+                                        std::cell::Cell<u32>,
+                                        !,
+                                    > = ::std::thread::local_impl::LazyStorage::new();
+                                    VAL.get_or_init(init, __init)
+                                }
+                            }
+                        },
+                    )
+                }
+            };
+            #[automatically_derived]
+            impl<'arbitrary> arbitrary::Arbitrary<'arbitrary> for ArbitraryExecutable {
+                fn arbitrary(
+                    u: &mut arbitrary::Unstructured<'arbitrary>,
+                ) -> arbitrary::Result<Self> {
+                    let guard_against_recursion = u.is_empty();
+                    if guard_against_recursion {
+                        RECURSIVE_COUNT_ArbitraryExecutable.with(|count| {
+                            if count.get() > 0 {
+                                return Err(arbitrary::Error::NotEnoughData);
+                            }
+                            count.set(count.get() + 1);
+                            Ok(())
+                        })?;
+                    }
+                    let result = (|| {
+                        Ok(
+                            match (u64::from(<u32 as arbitrary::Arbitrary>::arbitrary(u)?) * 3u64)
+                                >> 32
+                            {
+                                0u64 => {
+                                    ArbitraryExecutable::Wasm(arbitrary::Arbitrary::arbitrary(u)?)
+                                }
+                                1u64 => ArbitraryExecutable::StellarAsset,
+                                2u64 => ArbitraryExecutable::Account,
+                                _ => ::core::panicking::panic(
+                                    "internal error: entered unreachable code",
+                                ),
+                            },
+                        )
+                    })();
+                    if guard_against_recursion {
+                        RECURSIVE_COUNT_ArbitraryExecutable.with(|count| {
+                            count.set(count.get() - 1);
+                        });
+                    }
+                    result
+                }
+                fn arbitrary_take_rest(
+                    mut u: arbitrary::Unstructured<'arbitrary>,
+                ) -> arbitrary::Result<Self> {
+                    let guard_against_recursion = u.is_empty();
+                    if guard_against_recursion {
+                        RECURSIVE_COUNT_ArbitraryExecutable.with(|count| {
+                            if count.get() > 0 {
+                                return Err(arbitrary::Error::NotEnoughData);
+                            }
+                            count.set(count.get() + 1);
+                            Ok(())
+                        })?;
+                    }
+                    let result = (|| {
+                        Ok(
+                            match (u64::from(<u32 as arbitrary::Arbitrary>::arbitrary(&mut u)?)
+                                * 3u64)
+                                >> 32
+                            {
+                                0u64 => ArbitraryExecutable::Wasm(
+                                    arbitrary::Arbitrary::arbitrary_take_rest(u)?,
+                                ),
+                                1u64 => ArbitraryExecutable::StellarAsset,
+                                2u64 => ArbitraryExecutable::Account,
+                                _ => ::core::panicking::panic(
+                                    "internal error: entered unreachable code",
+                                ),
+                            },
+                        )
+                    })();
+                    if guard_against_recursion {
+                        RECURSIVE_COUNT_ArbitraryExecutable.with(|count| {
+                            count.set(count.get() - 1);
+                        });
+                    }
+                    result
+                }
+                #[inline]
+                fn size_hint(depth: usize) -> (usize, Option<usize>) {
+                    arbitrary::size_hint::and(
+                        <u32 as arbitrary::Arbitrary>::size_hint(depth),
+                        arbitrary::size_hint::recursion_guard(depth, |depth| {
+                            arbitrary::size_hint::or_all(
+                                    &[
+                                        arbitrary::size_hint::and_all(
+                                            &[
+                                                <<soroban_sdk::BytesN<
+                                                    32,
+                                                > as soroban_sdk::testutils::arbitrary::SorobanArbitrary>::Prototype as arbitrary::Arbitrary>::size_hint(
+                                                    depth,
+                                                ),
+                                            ],
+                                        ),
+                                        arbitrary::size_hint::and_all(&[]),
+                                        arbitrary::size_hint::and_all(&[]),
+                                    ],
+                                )
+                        }),
+                    )
+                }
+            }
+        };
+        impl soroban_sdk::testutils::arbitrary::SorobanArbitrary for Executable {
+            type Prototype = ArbitraryExecutable;
+        }
+        impl soroban_sdk::TryFromVal<soroban_sdk::Env, ArbitraryExecutable> for Executable {
+            type Error = soroban_sdk::ConversionError;
+            fn try_from_val(
+                env: &soroban_sdk::Env,
+                v: &ArbitraryExecutable,
+            ) -> std::result::Result<Self, Self::Error> {
+                Ok(match v {
+                    ArbitraryExecutable::Wasm(field_0) => {
+                        Executable::Wasm(soroban_sdk::IntoVal::into_val(field_0, env))
+                    }
+                    ArbitraryExecutable::StellarAsset => Executable::StellarAsset,
+                    ArbitraryExecutable::Account => Executable::Account,
+                })
+            }
+        }
+    };
     pub enum Context {
         Contract(ContractContext),
         CreateContractHostFn(CreateContractHostFnContext),
@@ -4795,625 +5414,6 @@ mod addcontract {
                             soroban_sdk::IntoVal::into_val(field_0, env),
                         )
                     }
-                })
-            }
-        }
-    };
-    pub enum Executable {
-        Wasm(soroban_sdk::BytesN<32>),
-        StellarAsset,
-        Account,
-    }
-    #[automatically_derived]
-    impl ::core::fmt::Debug for Executable {
-        #[inline]
-        fn fmt(&self, f: &mut ::core::fmt::Formatter) -> ::core::fmt::Result {
-            match self {
-                Executable::Wasm(__self_0) => {
-                    ::core::fmt::Formatter::debug_tuple_field1_finish(f, "Wasm", &__self_0)
-                }
-                Executable::StellarAsset => ::core::fmt::Formatter::write_str(f, "StellarAsset"),
-                Executable::Account => ::core::fmt::Formatter::write_str(f, "Account"),
-            }
-        }
-    }
-    #[automatically_derived]
-    impl ::core::clone::Clone for Executable {
-        #[inline]
-        fn clone(&self) -> Executable {
-            match self {
-                Executable::Wasm(__self_0) => {
-                    Executable::Wasm(::core::clone::Clone::clone(__self_0))
-                }
-                Executable::StellarAsset => Executable::StellarAsset,
-                Executable::Account => Executable::Account,
-            }
-        }
-    }
-    #[automatically_derived]
-    impl ::core::cmp::Eq for Executable {
-        #[inline]
-        #[doc(hidden)]
-        #[coverage(off)]
-        fn assert_receiver_is_total_eq(&self) -> () {
-            let _: ::core::cmp::AssertParamIsEq<soroban_sdk::BytesN<32>>;
-        }
-    }
-    #[automatically_derived]
-    impl ::core::marker::StructuralPartialEq for Executable {}
-    #[automatically_derived]
-    impl ::core::cmp::PartialEq for Executable {
-        #[inline]
-        fn eq(&self, other: &Executable) -> bool {
-            let __self_discr = ::core::intrinsics::discriminant_value(self);
-            let __arg1_discr = ::core::intrinsics::discriminant_value(other);
-            __self_discr == __arg1_discr
-                && match (self, other) {
-                    (Executable::Wasm(__self_0), Executable::Wasm(__arg1_0)) => {
-                        __self_0 == __arg1_0
-                    }
-                    _ => true,
-                }
-        }
-    }
-    #[automatically_derived]
-    impl ::core::cmp::Ord for Executable {
-        #[inline]
-        fn cmp(&self, other: &Executable) -> ::core::cmp::Ordering {
-            let __self_discr = ::core::intrinsics::discriminant_value(self);
-            let __arg1_discr = ::core::intrinsics::discriminant_value(other);
-            match ::core::cmp::Ord::cmp(&__self_discr, &__arg1_discr) {
-                ::core::cmp::Ordering::Equal => match (self, other) {
-                    (Executable::Wasm(__self_0), Executable::Wasm(__arg1_0)) => {
-                        ::core::cmp::Ord::cmp(__self_0, __arg1_0)
-                    }
-                    _ => ::core::cmp::Ordering::Equal,
-                },
-                cmp => cmp,
-            }
-        }
-    }
-    #[automatically_derived]
-    impl ::core::cmp::PartialOrd for Executable {
-        #[inline]
-        fn partial_cmp(&self, other: &Executable) -> ::core::option::Option<::core::cmp::Ordering> {
-            let __self_discr = ::core::intrinsics::discriminant_value(self);
-            let __arg1_discr = ::core::intrinsics::discriminant_value(other);
-            match (self, other) {
-                (Executable::Wasm(__self_0), Executable::Wasm(__arg1_0)) => {
-                    ::core::cmp::PartialOrd::partial_cmp(__self_0, __arg1_0)
-                }
-                _ => ::core::cmp::PartialOrd::partial_cmp(&__self_discr, &__arg1_discr),
-            }
-        }
-    }
-    impl Executable {
-        #[doc(hidden)]
-        pub const fn spec_type_name() -> &'static str {
-            "test_import_contract::addcontract::Executable"
-        }
-    }
-    pub static __SPEC_XDR_TYPE_EXECUTABLE: [u8; Executable::__SPEC_XDR_REF.const_xdr_len()] =
-        Executable::spec_xdr();
-    impl Executable {
-        const __SPEC_XDR_REF: soroban_sdk::xdr::ScSpecEntryRef<'static> =
-            soroban_sdk::xdr::ScSpecEntryRef::UdtUnionV0(soroban_sdk::xdr::ScSpecUdtUnionV0Ref {
-                doc: soroban_sdk::xdr::StringMRef::new(b""),
-                lib: soroban_sdk::xdr::StringMRef::new(b""),
-                name: soroban_sdk::xdr::StringMRef::new_str(Executable::spec_type_name()),
-                cases: soroban_sdk::xdr::VecMRef::new(&[
-                    soroban_sdk::xdr::ScSpecUdtUnionCaseV0Ref::TupleV0(
-                        soroban_sdk::xdr::ScSpecUdtUnionCaseTupleV0Ref {
-                            doc: soroban_sdk::xdr::StringMRef::new(b""),
-                            name: soroban_sdk::xdr::StringMRef::new(b"Wasm"),
-                            type_: soroban_sdk::xdr::VecMRef::new(&[
-                                soroban_sdk::xdr::ScSpecTypeDefRef::BytesN(
-                                    soroban_sdk::xdr::ScSpecTypeBytesN { n: 32u32 },
-                                ),
-                            ]),
-                        },
-                    ),
-                    soroban_sdk::xdr::ScSpecUdtUnionCaseV0Ref::VoidV0(
-                        soroban_sdk::xdr::ScSpecUdtUnionCaseVoidV0Ref {
-                            doc: soroban_sdk::xdr::StringMRef::new(b""),
-                            name: soroban_sdk::xdr::StringMRef::new(b"StellarAsset"),
-                        },
-                    ),
-                    soroban_sdk::xdr::ScSpecUdtUnionCaseV0Ref::VoidV0(
-                        soroban_sdk::xdr::ScSpecUdtUnionCaseVoidV0Ref {
-                            doc: soroban_sdk::xdr::StringMRef::new(b""),
-                            name: soroban_sdk::xdr::StringMRef::new(b"Account"),
-                        },
-                    ),
-                ]),
-            });
-        pub const fn spec_xdr() -> [u8; Executable::__SPEC_XDR_REF.const_xdr_len()] {
-            Executable::__SPEC_XDR_REF.const_to_xdr()
-        }
-        pub const fn spec_id() -> [u8; 8usize] {
-            let xdr = Self::spec_xdr();
-            let hash = soroban_sdk::reexports_for_macros::sha2_const::Sha256::new()
-                .update(&xdr)
-                .finalize();
-            [
-                hash[0], hash[1], hash[2], hash[3], hash[4], hash[5], hash[6], hash[7],
-            ]
-        }
-    }
-    impl soroban_sdk::SpecShakingMarker for Executable {
-        #[doc(hidden)]
-        #[inline(always)]
-        fn spec_shaking_marker() {
-            <soroban_sdk::BytesN<32> as soroban_sdk::SpecShakingMarker>::spec_shaking_marker();
-        }
-    }
-    impl soroban_sdk::TryFromVal<soroban_sdk::Env, soroban_sdk::Val> for Executable {
-        type Error = soroban_sdk::ConversionError;
-        #[inline(always)]
-        fn try_from_val(
-            env: &soroban_sdk::Env,
-            val: &soroban_sdk::Val,
-        ) -> Result<Self, soroban_sdk::ConversionError> {
-            use soroban_sdk::{EnvBase, TryFromVal, TryIntoVal};
-            const CASES: &'static [&'static str] = &["Wasm", "StellarAsset", "Account"];
-            let vec: soroban_sdk::Vec<soroban_sdk::Val> = val.try_into_val(env)?;
-            let mut iter = vec.try_iter();
-            let discriminant: soroban_sdk::Symbol = iter
-                .next()
-                .ok_or(soroban_sdk::ConversionError)??
-                .try_into_val(env)
-                .map_err(|_| soroban_sdk::ConversionError)?;
-            Ok(
-                match u32::from(env.symbol_index_in_strs(discriminant.to_symbol_val(), CASES)?)
-                    as usize
-                {
-                    0 => {
-                        if iter.len() > 1usize {
-                            return Err(soroban_sdk::ConversionError);
-                        }
-                        Self::Wasm(
-                            iter.next()
-                                .ok_or(soroban_sdk::ConversionError)??
-                                .try_into_val(env)?,
-                        )
-                    }
-                    1 => {
-                        if iter.len() > 0 {
-                            return Err(soroban_sdk::ConversionError);
-                        }
-                        Self::StellarAsset
-                    }
-                    2 => {
-                        if iter.len() > 0 {
-                            return Err(soroban_sdk::ConversionError);
-                        }
-                        Self::Account
-                    }
-                    _ => Err(soroban_sdk::ConversionError {})?,
-                },
-            )
-        }
-    }
-    impl soroban_sdk::TryFromVal<soroban_sdk::Env, Executable> for soroban_sdk::Val {
-        type Error = soroban_sdk::ConversionError;
-        #[inline(always)]
-        fn try_from_val(
-            env: &soroban_sdk::Env,
-            val: &Executable,
-        ) -> Result<Self, soroban_sdk::ConversionError> {
-            use soroban_sdk::{TryFromVal, TryIntoVal};
-            match val {
-                Executable::Wasm(ref value0) => {
-                    let tup: (soroban_sdk::Val, soroban_sdk::Val) = (
-                        soroban_sdk::Symbol::try_from_val(env, &"Wasm")?.to_val(),
-                        value0.try_into_val(env)?,
-                    );
-                    tup.try_into_val(env).map_err(Into::into)
-                }
-                Executable::StellarAsset => {
-                    let tup: (soroban_sdk::Val,) =
-                        (soroban_sdk::Symbol::try_from_val(env, &"StellarAsset")?.to_val(),);
-                    tup.try_into_val(env).map_err(Into::into)
-                }
-                Executable::Account => {
-                    let tup: (soroban_sdk::Val,) =
-                        (soroban_sdk::Symbol::try_from_val(env, &"Account")?.to_val(),);
-                    tup.try_into_val(env).map_err(Into::into)
-                }
-            }
-        }
-    }
-    impl soroban_sdk::TryFromVal<soroban_sdk::Env, &Executable> for soroban_sdk::Val {
-        type Error = soroban_sdk::ConversionError;
-        #[inline(always)]
-        fn try_from_val(
-            env: &soroban_sdk::Env,
-            val: &&Executable,
-        ) -> Result<Self, soroban_sdk::ConversionError> {
-            <_ as soroban_sdk::TryFromVal<soroban_sdk::Env, Executable>>::try_from_val(env, *val)
-        }
-    }
-    impl soroban_sdk::TryFromVal<soroban_sdk::Env, soroban_sdk::xdr::ScVec> for Executable {
-        type Error = soroban_sdk::xdr::Error;
-        #[inline(always)]
-        fn try_from_val(
-            env: &soroban_sdk::Env,
-            val: &soroban_sdk::xdr::ScVec,
-        ) -> Result<Self, soroban_sdk::xdr::Error> {
-            use soroban_sdk::xdr::Validate;
-            use soroban_sdk::TryIntoVal;
-            let vec = val;
-            let mut iter = vec.iter();
-            let discriminant: soroban_sdk::xdr::ScSymbol = iter
-                .next()
-                .ok_or(soroban_sdk::xdr::Error::Invalid)?
-                .clone()
-                .try_into()
-                .map_err(|_| soroban_sdk::xdr::Error::Invalid)?;
-            let discriminant_name: &str = &discriminant.to_utf8_string()?;
-            Ok(match discriminant_name {
-                "Wasm" => {
-                    if iter.len() > 1usize {
-                        return Err(soroban_sdk::xdr::Error::Invalid);
-                    }
-                    let rv0: soroban_sdk::Val = iter
-                        .next()
-                        .ok_or(soroban_sdk::xdr::Error::Invalid)?
-                        .try_into_val(env)
-                        .map_err(|_| soroban_sdk::xdr::Error::Invalid)?;
-                    Self::Wasm(
-                        rv0.try_into_val(env)
-                            .map_err(|_| soroban_sdk::xdr::Error::Invalid)?,
-                    )
-                }
-                "StellarAsset" => {
-                    if iter.len() > 0 {
-                        return Err(soroban_sdk::xdr::Error::Invalid);
-                    }
-                    Self::StellarAsset
-                }
-                "Account" => {
-                    if iter.len() > 0 {
-                        return Err(soroban_sdk::xdr::Error::Invalid);
-                    }
-                    Self::Account
-                }
-                _ => Err(soroban_sdk::xdr::Error::Invalid)?,
-            })
-        }
-    }
-    impl soroban_sdk::TryFromVal<soroban_sdk::Env, soroban_sdk::xdr::ScVal> for Executable {
-        type Error = soroban_sdk::xdr::Error;
-        #[inline(always)]
-        fn try_from_val(
-            env: &soroban_sdk::Env,
-            val: &soroban_sdk::xdr::ScVal,
-        ) -> Result<Self, soroban_sdk::xdr::Error> {
-            if let soroban_sdk::xdr::ScVal::Vec(Some(vec)) = val {
-                <_ as soroban_sdk::TryFromVal<_, _>>::try_from_val(env, vec)
-            } else {
-                Err(soroban_sdk::xdr::Error::Invalid)
-            }
-        }
-    }
-    impl TryFrom<&Executable> for soroban_sdk::xdr::ScVec {
-        type Error = soroban_sdk::xdr::Error;
-        #[inline(always)]
-        fn try_from(val: &Executable) -> Result<Self, soroban_sdk::xdr::Error> {
-            extern crate alloc;
-            Ok(match val {
-                Executable::Wasm(value0) => (
-                    soroban_sdk::xdr::ScSymbol(
-                        "Wasm"
-                            .try_into()
-                            .map_err(|_| soroban_sdk::xdr::Error::Invalid)?,
-                    ),
-                    value0,
-                )
-                    .try_into()
-                    .map_err(|_| soroban_sdk::xdr::Error::Invalid)?,
-                Executable::StellarAsset => {
-                    let symbol = soroban_sdk::xdr::ScSymbol(
-                        "StellarAsset"
-                            .try_into()
-                            .map_err(|_| soroban_sdk::xdr::Error::Invalid)?,
-                    );
-                    let val = soroban_sdk::xdr::ScVal::Symbol(symbol);
-                    (val,)
-                        .try_into()
-                        .map_err(|_| soroban_sdk::xdr::Error::Invalid)?
-                }
-                Executable::Account => {
-                    let symbol = soroban_sdk::xdr::ScSymbol(
-                        "Account"
-                            .try_into()
-                            .map_err(|_| soroban_sdk::xdr::Error::Invalid)?,
-                    );
-                    let val = soroban_sdk::xdr::ScVal::Symbol(symbol);
-                    (val,)
-                        .try_into()
-                        .map_err(|_| soroban_sdk::xdr::Error::Invalid)?
-                }
-            })
-        }
-    }
-    impl TryFrom<Executable> for soroban_sdk::xdr::ScVec {
-        type Error = soroban_sdk::xdr::Error;
-        #[inline(always)]
-        fn try_from(val: Executable) -> Result<Self, soroban_sdk::xdr::Error> {
-            (&val).try_into()
-        }
-    }
-    impl TryFrom<&Executable> for soroban_sdk::xdr::ScVal {
-        type Error = soroban_sdk::xdr::Error;
-        #[inline(always)]
-        fn try_from(val: &Executable) -> Result<Self, soroban_sdk::xdr::Error> {
-            Ok(soroban_sdk::xdr::ScVal::Vec(Some(val.try_into()?)))
-        }
-    }
-    impl TryFrom<Executable> for soroban_sdk::xdr::ScVal {
-        type Error = soroban_sdk::xdr::Error;
-        #[inline(always)]
-        fn try_from(val: Executable) -> Result<Self, soroban_sdk::xdr::Error> {
-            (&val).try_into()
-        }
-    }
-    const _: () = {
-        use soroban_sdk::testutils::arbitrary::arbitrary;
-        use soroban_sdk::testutils::arbitrary::std;
-        pub enum ArbitraryExecutable {
-            Wasm(
-                <soroban_sdk::BytesN<
-                    32,
-                > as soroban_sdk::testutils::arbitrary::SorobanArbitrary>::Prototype,
-            ),
-            StellarAsset,
-            Account,
-        }
-        #[automatically_derived]
-        impl ::core::fmt::Debug for ArbitraryExecutable {
-            #[inline]
-            fn fmt(&self, f: &mut ::core::fmt::Formatter) -> ::core::fmt::Result {
-                match self {
-                    ArbitraryExecutable::Wasm(__self_0) => {
-                        ::core::fmt::Formatter::debug_tuple_field1_finish(f, "Wasm", &__self_0)
-                    }
-                    ArbitraryExecutable::StellarAsset => {
-                        ::core::fmt::Formatter::write_str(f, "StellarAsset")
-                    }
-                    ArbitraryExecutable::Account => ::core::fmt::Formatter::write_str(f, "Account"),
-                }
-            }
-        }
-        #[automatically_derived]
-        impl ::core::clone::Clone for ArbitraryExecutable {
-            #[inline]
-            fn clone(&self) -> ArbitraryExecutable {
-                match self {
-                    ArbitraryExecutable::Wasm(__self_0) => {
-                        ArbitraryExecutable::Wasm(::core::clone::Clone::clone(__self_0))
-                    }
-                    ArbitraryExecutable::StellarAsset => ArbitraryExecutable::StellarAsset,
-                    ArbitraryExecutable::Account => ArbitraryExecutable::Account,
-                }
-            }
-        }
-        #[automatically_derived]
-        impl ::core::cmp::Eq for ArbitraryExecutable {
-            #[inline]
-            #[doc(hidden)]
-            #[coverage(off)]
-            fn assert_receiver_is_total_eq(&self) -> () {
-                let _: ::core::cmp::AssertParamIsEq<
-                    <soroban_sdk::BytesN<
-                        32,
-                    > as soroban_sdk::testutils::arbitrary::SorobanArbitrary>::Prototype,
-                >;
-            }
-        }
-        #[automatically_derived]
-        impl ::core::marker::StructuralPartialEq for ArbitraryExecutable {}
-        #[automatically_derived]
-        impl ::core::cmp::PartialEq for ArbitraryExecutable {
-            #[inline]
-            fn eq(&self, other: &ArbitraryExecutable) -> bool {
-                let __self_discr = ::core::intrinsics::discriminant_value(self);
-                let __arg1_discr = ::core::intrinsics::discriminant_value(other);
-                __self_discr == __arg1_discr
-                    && match (self, other) {
-                        (
-                            ArbitraryExecutable::Wasm(__self_0),
-                            ArbitraryExecutable::Wasm(__arg1_0),
-                        ) => __self_0 == __arg1_0,
-                        _ => true,
-                    }
-            }
-        }
-        #[automatically_derived]
-        impl ::core::cmp::Ord for ArbitraryExecutable {
-            #[inline]
-            fn cmp(&self, other: &ArbitraryExecutable) -> ::core::cmp::Ordering {
-                let __self_discr = ::core::intrinsics::discriminant_value(self);
-                let __arg1_discr = ::core::intrinsics::discriminant_value(other);
-                match ::core::cmp::Ord::cmp(&__self_discr, &__arg1_discr) {
-                    ::core::cmp::Ordering::Equal => match (self, other) {
-                        (
-                            ArbitraryExecutable::Wasm(__self_0),
-                            ArbitraryExecutable::Wasm(__arg1_0),
-                        ) => ::core::cmp::Ord::cmp(__self_0, __arg1_0),
-                        _ => ::core::cmp::Ordering::Equal,
-                    },
-                    cmp => cmp,
-                }
-            }
-        }
-        #[automatically_derived]
-        impl ::core::cmp::PartialOrd for ArbitraryExecutable {
-            #[inline]
-            fn partial_cmp(
-                &self,
-                other: &ArbitraryExecutable,
-            ) -> ::core::option::Option<::core::cmp::Ordering> {
-                let __self_discr = ::core::intrinsics::discriminant_value(self);
-                let __arg1_discr = ::core::intrinsics::discriminant_value(other);
-                match (self, other) {
-                    (ArbitraryExecutable::Wasm(__self_0), ArbitraryExecutable::Wasm(__arg1_0)) => {
-                        ::core::cmp::PartialOrd::partial_cmp(__self_0, __arg1_0)
-                    }
-                    _ => ::core::cmp::PartialOrd::partial_cmp(&__self_discr, &__arg1_discr),
-                }
-            }
-        }
-        const _: () = {
-            #[allow(non_upper_case_globals)]
-            const RECURSIVE_COUNT_ArbitraryExecutable: ::std::thread::LocalKey<
-                std::cell::Cell<u32>,
-            > = {
-                #[inline]
-                fn __init() -> std::cell::Cell<u32> {
-                    std::cell::Cell::new(0)
-                }
-                unsafe {
-                    ::std::thread::LocalKey::new(
-                        const {
-                            if ::std::mem::needs_drop::<std::cell::Cell<u32>>() {
-                                |init| {
-                                    #[thread_local]
-                                    static VAL: ::std::thread::local_impl::LazyStorage<
-                                        std::cell::Cell<u32>,
-                                        (),
-                                    > = ::std::thread::local_impl::LazyStorage::new();
-                                    VAL.get_or_init(init, __init)
-                                }
-                            } else {
-                                |init| {
-                                    #[thread_local]
-                                    static VAL: ::std::thread::local_impl::LazyStorage<
-                                        std::cell::Cell<u32>,
-                                        !,
-                                    > = ::std::thread::local_impl::LazyStorage::new();
-                                    VAL.get_or_init(init, __init)
-                                }
-                            }
-                        },
-                    )
-                }
-            };
-            #[automatically_derived]
-            impl<'arbitrary> arbitrary::Arbitrary<'arbitrary> for ArbitraryExecutable {
-                fn arbitrary(
-                    u: &mut arbitrary::Unstructured<'arbitrary>,
-                ) -> arbitrary::Result<Self> {
-                    let guard_against_recursion = u.is_empty();
-                    if guard_against_recursion {
-                        RECURSIVE_COUNT_ArbitraryExecutable.with(|count| {
-                            if count.get() > 0 {
-                                return Err(arbitrary::Error::NotEnoughData);
-                            }
-                            count.set(count.get() + 1);
-                            Ok(())
-                        })?;
-                    }
-                    let result = (|| {
-                        Ok(
-                            match (u64::from(<u32 as arbitrary::Arbitrary>::arbitrary(u)?) * 3u64)
-                                >> 32
-                            {
-                                0u64 => {
-                                    ArbitraryExecutable::Wasm(arbitrary::Arbitrary::arbitrary(u)?)
-                                }
-                                1u64 => ArbitraryExecutable::StellarAsset,
-                                2u64 => ArbitraryExecutable::Account,
-                                _ => ::core::panicking::panic(
-                                    "internal error: entered unreachable code",
-                                ),
-                            },
-                        )
-                    })();
-                    if guard_against_recursion {
-                        RECURSIVE_COUNT_ArbitraryExecutable.with(|count| {
-                            count.set(count.get() - 1);
-                        });
-                    }
-                    result
-                }
-                fn arbitrary_take_rest(
-                    mut u: arbitrary::Unstructured<'arbitrary>,
-                ) -> arbitrary::Result<Self> {
-                    let guard_against_recursion = u.is_empty();
-                    if guard_against_recursion {
-                        RECURSIVE_COUNT_ArbitraryExecutable.with(|count| {
-                            if count.get() > 0 {
-                                return Err(arbitrary::Error::NotEnoughData);
-                            }
-                            count.set(count.get() + 1);
-                            Ok(())
-                        })?;
-                    }
-                    let result = (|| {
-                        Ok(
-                            match (u64::from(<u32 as arbitrary::Arbitrary>::arbitrary(&mut u)?)
-                                * 3u64)
-                                >> 32
-                            {
-                                0u64 => ArbitraryExecutable::Wasm(
-                                    arbitrary::Arbitrary::arbitrary_take_rest(u)?,
-                                ),
-                                1u64 => ArbitraryExecutable::StellarAsset,
-                                2u64 => ArbitraryExecutable::Account,
-                                _ => ::core::panicking::panic(
-                                    "internal error: entered unreachable code",
-                                ),
-                            },
-                        )
-                    })();
-                    if guard_against_recursion {
-                        RECURSIVE_COUNT_ArbitraryExecutable.with(|count| {
-                            count.set(count.get() - 1);
-                        });
-                    }
-                    result
-                }
-                #[inline]
-                fn size_hint(depth: usize) -> (usize, Option<usize>) {
-                    arbitrary::size_hint::and(
-                        <u32 as arbitrary::Arbitrary>::size_hint(depth),
-                        arbitrary::size_hint::recursion_guard(depth, |depth| {
-                            arbitrary::size_hint::or_all(
-                                    &[
-                                        arbitrary::size_hint::and_all(
-                                            &[
-                                                <<soroban_sdk::BytesN<
-                                                    32,
-                                                > as soroban_sdk::testutils::arbitrary::SorobanArbitrary>::Prototype as arbitrary::Arbitrary>::size_hint(
-                                                    depth,
-                                                ),
-                                            ],
-                                        ),
-                                        arbitrary::size_hint::and_all(&[]),
-                                        arbitrary::size_hint::and_all(&[]),
-                                    ],
-                                )
-                        }),
-                    )
-                }
-            }
-        };
-        impl soroban_sdk::testutils::arbitrary::SorobanArbitrary for Executable {
-            type Prototype = ArbitraryExecutable;
-        }
-        impl soroban_sdk::TryFromVal<soroban_sdk::Env, ArbitraryExecutable> for Executable {
-            type Error = soroban_sdk::ConversionError;
-            fn try_from_val(
-                env: &soroban_sdk::Env,
-                v: &ArbitraryExecutable,
-            ) -> std::result::Result<Self, Self::Error> {
-                Ok(match v {
-                    ArbitraryExecutable::Wasm(field_0) => {
-                        Executable::Wasm(soroban_sdk::IntoVal::into_val(field_0, env))
-                    }
-                    ArbitraryExecutable::StellarAsset => Executable::StellarAsset,
-                    ArbitraryExecutable::Account => Executable::Account,
                 })
             }
         }
