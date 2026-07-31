@@ -16,6 +16,7 @@ use syn::Error;
 
 use soroban_spec::read::{from_wasm, FromWasmError};
 
+pub use syn_ext::TypeNames;
 use types::{
     generate_enum_with_options, generate_error_enum_with_options, generate_event_with_options,
     generate_struct_with_options, generate_union_with_options,
@@ -113,6 +114,12 @@ pub fn generate_without_file_with_options(
     let specs = apply_error_udt_override(specs);
     let specs: &[ScSpecEntry] = &specs;
 
+    // Name every user-defined type up front, so that a reference to a type
+    // resolves to the same identifier as its definition even where two types'
+    // qualified names end in the same segment. Built after the error override so
+    // that the name it rewrote references to resolves too.
+    let names = &TypeNames::from_specs(specs)?;
+
     let mut spec_fns = Vec::new();
     let mut spec_structs = Vec::new();
     let mut spec_unions = Vec::new();
@@ -132,26 +139,26 @@ pub fn generate_without_file_with_options(
 
     let trait_name = "Contract";
 
-    let trait_ = r#trait::generate_trait(trait_name, &spec_fns)?;
+    let trait_ = r#trait::generate_trait_with_names(trait_name, &spec_fns, names)?;
     let structs = spec_structs
         .iter()
-        .map(|s| generate_struct_with_options(s, opts))
+        .map(|s| generate_struct_with_options(s, opts, names))
         .collect::<Result<Vec<_>, _>>()?;
     let unions = spec_unions
         .iter()
-        .map(|s| generate_union_with_options(s, opts))
+        .map(|s| generate_union_with_options(s, opts, names))
         .collect::<Result<Vec<_>, _>>()?;
     let enums = spec_enums
         .iter()
-        .map(|s| generate_enum_with_options(s, opts))
+        .map(|s| generate_enum_with_options(s, opts, names))
         .collect::<Result<Vec<_>, _>>()?;
     let error_enums = spec_error_enums
         .iter()
-        .map(|s| generate_error_enum_with_options(s, opts))
+        .map(|s| generate_error_enum_with_options(s, opts, names))
         .collect::<Result<Vec<_>, _>>()?;
     let events = spec_events
         .iter()
-        .map(|s| generate_event_with_options(s, opts))
+        .map(|s| generate_event_with_options(s, opts, names))
         .collect::<Result<Vec<_>, _>>()?;
 
     Ok(quote! {
@@ -286,8 +293,86 @@ impl ToFormattedString for TokenStream {
 mod test {
     use pretty_assertions::assert_eq;
 
-    use super::{generate, ToFormattedString};
+    use super::{generate, generate_without_file, ToFormattedString};
     use soroban_spec::read::from_wasm;
+    use stellar_xdr::{
+        ScSpecEntry, ScSpecFunctionInputV0, ScSpecFunctionV0, ScSpecTypeDef, ScSpecTypeUdt,
+        ScSpecUdtErrorEnumCaseV0, ScSpecUdtErrorEnumV0,
+    };
+
+    fn error_enum(name: &str, case: &str, value: u32) -> ScSpecEntry {
+        ScSpecEntry::UdtErrorEnumV0(ScSpecUdtErrorEnumV0 {
+            doc: "".try_into().unwrap(),
+            lib: "".try_into().unwrap(),
+            name: name.try_into().unwrap(),
+            cases: [ScSpecUdtErrorEnumCaseV0 {
+                doc: "".try_into().unwrap(),
+                name: case.try_into().unwrap(),
+                value,
+            }]
+            .try_into()
+            .unwrap(),
+        })
+    }
+
+    fn udt(name: &str) -> ScSpecTypeDef {
+        ScSpecTypeDef::Udt(ScSpecTypeUdt {
+            name: name.try_into().unwrap(),
+        })
+    }
+
+    /// Two error enums defined in different modules end in the same segment, so
+    /// the second is numbered, and the function's references to each resolve to
+    /// the identifier that type was given.
+    #[test]
+    fn test_colliding_type_names_are_numbered_and_references_follow() {
+        let entries = [
+            error_enum("mycrate::MyError", "Bad", 1),
+            error_enum("mycrate::mymod::MyError", "Worse", 2),
+            ScSpecEntry::FunctionV0(ScSpecFunctionV0 {
+                doc: "".try_into().unwrap(),
+                name: "f".try_into().unwrap(),
+                inputs: [
+                    ScSpecFunctionInputV0 {
+                        doc: "".try_into().unwrap(),
+                        name: "a".try_into().unwrap(),
+                        type_: udt("mycrate::MyError"),
+                    },
+                    ScSpecFunctionInputV0 {
+                        doc: "".try_into().unwrap(),
+                        name: "b".try_into().unwrap(),
+                        type_: udt("mycrate::mymod::MyError"),
+                    },
+                ]
+                .try_into()
+                .unwrap(),
+                outputs: [udt("mycrate::mymod::MyError")].try_into().unwrap(),
+            }),
+        ];
+        let rust = generate_without_file(&entries)
+            .unwrap()
+            .to_formatted_string()
+            .unwrap();
+        assert_eq!(
+            rust,
+            r#"#[soroban_sdk::contractargs(name = "Args")]
+#[soroban_sdk::contractclient(name = "Client")]
+pub trait Contract {
+    fn f(env: soroban_sdk::Env, a: MyError, b: MyError2) -> MyError2;
+}
+#[soroban_sdk::contracterror(export = false)]
+#[derive(Debug, Copy, Clone, Eq, PartialEq, Ord, PartialOrd)]
+pub enum MyError {
+    Bad = 1,
+}
+#[soroban_sdk::contracterror(export = false)]
+#[derive(Debug, Copy, Clone, Eq, PartialEq, Ord, PartialOrd)]
+pub enum MyError2 {
+    Worse = 2,
+}
+"#
+        );
+    }
 
     const EXAMPLE_WASM: &[u8] = include_bytes!("../../target/wasm32v1-none/release/test_udt.wasm");
 

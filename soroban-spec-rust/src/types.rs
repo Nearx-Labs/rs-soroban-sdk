@@ -5,7 +5,7 @@ use stellar_xdr::{
     ScSpecUdtErrorEnumV0, ScSpecUdtStructV0, ScSpecUdtUnionV0,
 };
 
-use crate::syn_ext::{str_to_ident, type_name_to_ident};
+use crate::syn_ext::{str_to_ident, type_name_to_ident, TypeNames};
 
 // IMPORTANT: The "docs" fields of spec entries are not output in Rust token
 // streams as rustdocs, because rustdocs can contain Rust code, and that code
@@ -32,7 +32,7 @@ pub struct GenerateOptions {
 /// Constructs a token stream containing a single struct that mirrors the struct
 /// spec.
 pub fn generate_struct(spec: &ScSpecUdtStructV0) -> Result<TokenStream, GenerateError> {
-    generate_struct_with_options(spec, &GenerateOptions::default())
+    generate_struct_with_options(spec, &GenerateOptions::default(), &TypeNames::default())
 }
 
 /// Constructs a token stream containing a single struct that mirrors the struct
@@ -40,13 +40,16 @@ pub fn generate_struct(spec: &ScSpecUdtStructV0) -> Result<TokenStream, Generate
 pub fn generate_struct_with_options(
     spec: &ScSpecUdtStructV0,
     opts: &GenerateOptions,
+    names: &TypeNames,
 ) -> Result<TokenStream, GenerateError> {
-    let ident = type_name_to_ident(&spec.name)?;
+    let ident = names.ident(&spec.name)?;
 
     if spec.lib.len() > 0 {
         let lib_ident = str_to_ident(&spec.lib)?;
+        // The library names the type by its own name, not by a numbered alias.
+        let lib_type_ident = type_name_to_ident(&spec.name)?;
         Ok(quote! {
-            type #ident = ::#lib_ident::#ident;
+            type #ident = ::#lib_ident::#lib_type_ident;
         })
     } else if spec
         .fields
@@ -65,7 +68,7 @@ pub fn generate_struct_with_options(
             .fields
             .iter()
             .map(|f| {
-                let f_type = generate_type_ident(&f.type_)?;
+                let f_type = generate_type_ident_with_names(&f.type_, names)?;
                 Ok(quote! { pub #f_type })
             })
             .collect::<Result<Vec<_>, GenerateError>>()?;
@@ -81,7 +84,7 @@ pub fn generate_struct_with_options(
             .iter()
             .map(|f| {
                 let f_ident = str_to_ident(&f.name)?;
-                let f_type = generate_type_ident(&f.type_)?;
+                let f_type = generate_type_ident_with_names(&f.type_, names)?;
                 Ok(quote! { pub #f_ident: #f_type })
             })
             .collect::<Result<Vec<_>, GenerateError>>()?;
@@ -97,7 +100,7 @@ pub fn generate_struct_with_options(
 /// Constructs a token stream containing a single enum that mirrors the union
 /// spec.
 pub fn generate_union(spec: &ScSpecUdtUnionV0) -> Result<TokenStream, GenerateError> {
-    generate_union_with_options(spec, &GenerateOptions::default())
+    generate_union_with_options(spec, &GenerateOptions::default(), &TypeNames::default())
 }
 
 /// Constructs a token stream containing a single enum that mirrors the union
@@ -105,12 +108,15 @@ pub fn generate_union(spec: &ScSpecUdtUnionV0) -> Result<TokenStream, GenerateEr
 pub fn generate_union_with_options(
     spec: &ScSpecUdtUnionV0,
     opts: &GenerateOptions,
+    names: &TypeNames,
 ) -> Result<TokenStream, GenerateError> {
-    let ident = type_name_to_ident(&spec.name)?;
+    let ident = names.ident(&spec.name)?;
     if spec.lib.len() > 0 {
         let lib_ident = str_to_ident(&spec.lib)?;
+        // The library names the type by its own name, not by a numbered alias.
+        let lib_type_ident = type_name_to_ident(&spec.name)?;
         Ok(quote! {
-            pub type #ident = ::#lib_ident::#ident;
+            pub type #ident = ::#lib_ident::#lib_type_ident;
         })
     } else {
         let variants = spec
@@ -128,7 +134,7 @@ pub fn generate_union_with_options(
                         let v_type = t
                             .type_
                             .iter()
-                            .map(generate_type_ident)
+                            .map(|t| generate_type_ident_with_names(t, names))
                             .collect::<Result<Vec<_>, _>>()?;
                         Ok(quote! { #v_ident ( #(#v_type),* ) })
                     }
@@ -147,7 +153,7 @@ pub fn generate_union_with_options(
 /// Constructs a token stream containing a single enum that mirrors the enum
 /// spec.
 pub fn generate_enum(spec: &ScSpecUdtEnumV0) -> Result<TokenStream, GenerateError> {
-    generate_enum_with_options(spec, &GenerateOptions::default())
+    generate_enum_with_options(spec, &GenerateOptions::default(), &TypeNames::default())
 }
 
 /// Constructs a token stream containing a single enum that mirrors the enum
@@ -155,12 +161,15 @@ pub fn generate_enum(spec: &ScSpecUdtEnumV0) -> Result<TokenStream, GenerateErro
 pub fn generate_enum_with_options(
     spec: &ScSpecUdtEnumV0,
     opts: &GenerateOptions,
+    names: &TypeNames,
 ) -> Result<TokenStream, GenerateError> {
-    let ident = type_name_to_ident(&spec.name)?;
+    let ident = names.ident(&spec.name)?;
     if spec.lib.len() > 0 {
         let lib_ident = str_to_ident(&spec.lib)?;
+        // The library names the type by its own name, not by a numbered alias.
+        let lib_type_ident = type_name_to_ident(&spec.name)?;
         Ok(quote! {
-            pub type #ident = ::#lib_ident::#ident;
+            pub type #ident = ::#lib_ident::#lib_type_ident;
         })
     } else {
         let variants = spec
@@ -184,7 +193,7 @@ pub fn generate_enum_with_options(
 /// Constructs a token stream containing a single enum that mirrors the enum
 /// spec, that is intended for use with errors.
 pub fn generate_error_enum(spec: &ScSpecUdtErrorEnumV0) -> Result<TokenStream, GenerateError> {
-    generate_error_enum_with_options(spec, &GenerateOptions::default())
+    generate_error_enum_with_options(spec, &GenerateOptions::default(), &TypeNames::default())
 }
 
 /// Constructs a token stream containing a single enum that mirrors the enum
@@ -192,12 +201,15 @@ pub fn generate_error_enum(spec: &ScSpecUdtErrorEnumV0) -> Result<TokenStream, G
 pub fn generate_error_enum_with_options(
     spec: &ScSpecUdtErrorEnumV0,
     opts: &GenerateOptions,
+    names: &TypeNames,
 ) -> Result<TokenStream, GenerateError> {
-    let ident = type_name_to_ident(&spec.name)?;
+    let ident = names.ident(&spec.name)?;
     if spec.lib.len() > 0 {
         let lib_ident = str_to_ident(&spec.lib)?;
+        // The library names the type by its own name, not by a numbered alias.
+        let lib_type_ident = type_name_to_ident(&spec.name)?;
         Ok(quote! {
-            pub type #ident = ::#lib_ident::#ident;
+            pub type #ident = ::#lib_ident::#lib_type_ident;
         })
     } else {
         let variants = spec
@@ -225,7 +237,7 @@ pub fn generate_error_enum_with_options(
 /// Constructs a token stream containing a single struct that mirrors the event
 /// spec.
 pub fn generate_event(spec: &ScSpecEventV0) -> Result<TokenStream, GenerateError> {
-    generate_event_with_options(spec, &GenerateOptions::default())
+    generate_event_with_options(spec, &GenerateOptions::default(), &TypeNames::default())
 }
 
 /// Constructs a token stream containing a single struct that mirrors the event
@@ -233,6 +245,7 @@ pub fn generate_event(spec: &ScSpecEventV0) -> Result<TokenStream, GenerateError
 pub fn generate_event_with_options(
     spec: &ScSpecEventV0,
     opts: &GenerateOptions,
+    names: &TypeNames,
 ) -> Result<TokenStream, GenerateError> {
     // An event is named by a symbol rather than a qualified type name, so its
     // name is already the identifier.
@@ -250,7 +263,7 @@ pub fn generate_event_with_options(
             .iter()
             .map(|p| {
                 let p_ident = str_to_ident(&p.name)?;
-                let p_type = generate_type_ident(&p.type_)?;
+                let p_type = generate_type_ident_with_names(&p.type_, names)?;
                 Ok(match p.location {
                     ScSpecEventParamLocationV0::TopicList => quote! {
                         #[topic]
@@ -286,6 +299,16 @@ fn contracttype_attr(export: bool) -> TokenStream {
 }
 
 pub fn generate_type_ident(spec: &ScSpecTypeDef) -> Result<TokenStream, GenerateError> {
+    generate_type_ident_with_names(spec, &TypeNames::default())
+}
+
+/// Constructs a token stream referring to the type the spec type def refers to,
+/// naming any user-defined type by the identifier `names` gives it.
+pub fn generate_type_ident_with_names(
+    spec: &ScSpecTypeDef,
+    names: &TypeNames,
+) -> Result<TokenStream, GenerateError> {
+    let generate_type_ident = |spec| generate_type_ident_with_names(spec, names);
     match spec {
         ScSpecTypeDef::Val => Ok(quote! { soroban_sdk::Val }),
         ScSpecTypeDef::U64 => Ok(quote! { u64 }),
@@ -331,10 +354,8 @@ pub fn generate_type_ident(spec: &ScSpecTypeDef) -> Result<TokenStream, Generate
             let n = Literal::u32_unsuffixed(b.n);
             Ok(quote! { soroban_sdk::BytesN<#n> })
         }
-        // The name a reference carries qualifies the type with the module it
-        // was defined in, so only its last segment names the type itself.
         ScSpecTypeDef::Udt(u) => {
-            let ident = type_name_to_ident(&u.name)?;
+            let ident = names.ident(&u.name)?;
             Ok(quote! { #ident })
         }
         ScSpecTypeDef::Void => Ok(quote! { () }),
