@@ -135,14 +135,18 @@ fn test_spec() {
                 doc: "".try_into().unwrap(),
                 name: "a".try_into().unwrap(),
                 type_: ScSpecTypeDef::Udt(ScSpecTypeUdt {
-                    name: "Udt".try_into().unwrap(),
+                    name: "soroban_sdk::tests::contract_udt_struct::Udt"
+                        .try_into()
+                        .unwrap(),
                 }),
             },
             ScSpecFunctionInputV0 {
                 doc: "".try_into().unwrap(),
                 name: "b".try_into().unwrap(),
                 type_: ScSpecTypeDef::Udt(ScSpecTypeUdt {
-                    name: "Udt".try_into().unwrap(),
+                    name: "soroban_sdk::tests::contract_udt_struct::Udt"
+                        .try_into()
+                        .unwrap(),
                 }),
             },
         ]
@@ -151,10 +155,14 @@ fn test_spec() {
         outputs: vec![ScSpecTypeDef::Tuple(Box::new(ScSpecTypeTuple {
             value_types: vec![
                 ScSpecTypeDef::Udt(ScSpecTypeUdt {
-                    name: "Udt".try_into().unwrap(),
+                    name: "soroban_sdk::tests::contract_udt_struct::Udt"
+                        .try_into()
+                        .unwrap(),
                 }),
                 ScSpecTypeDef::Udt(ScSpecTypeUdt {
-                    name: "Udt".try_into().unwrap(),
+                    name: "soroban_sdk::tests::contract_udt_struct::Udt"
+                        .try_into()
+                        .unwrap(),
                 }),
             ]
             .try_into()
@@ -178,14 +186,18 @@ fn test_spec_with_long_names() {
                 doc: "".try_into().unwrap(),
                 name: "a".try_into().unwrap(),
                 type_: ScSpecTypeDef::Udt(ScSpecTypeUdt {
-                    name: "UdtWithLongName".try_into().unwrap(),
+                    name: "soroban_sdk::tests::contract_udt_struct::UdtWithLongName"
+                        .try_into()
+                        .unwrap(),
                 }),
             },
             ScSpecFunctionInputV0 {
                 doc: "".try_into().unwrap(),
                 name: "b".try_into().unwrap(),
                 type_: ScSpecTypeDef::Udt(ScSpecTypeUdt {
-                    name: "UdtWithLongName".try_into().unwrap(),
+                    name: "soroban_sdk::tests::contract_udt_struct::UdtWithLongName"
+                        .try_into()
+                        .unwrap(),
                 }),
             },
         ]
@@ -194,6 +206,19 @@ fn test_spec_with_long_names() {
         outputs: vec![ScSpecTypeDef::U64].try_into().unwrap(),
     });
     assert_eq!(entries, expect);
+}
+
+/// The id is computed at const evaluation time, so it must agree with the
+/// runtime hash the shaking tools use to match a marker against the entries in
+/// `contractspecv0`.
+#[test]
+fn test_spec_id_matches_marker() {
+    const ID: [u8; 8] = Udt::spec_id();
+
+    let entry = ScSpecEntry::from_xdr(Udt::spec_xdr(), Limits::none()).unwrap();
+    let marker = soroban_spec::shaking::generate_marker_for_entry(&entry);
+
+    assert_eq!(&ID[..], &marker[soroban_spec::shaking::MAGIC.len()..]);
 }
 
 #[test]

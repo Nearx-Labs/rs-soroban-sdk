@@ -5,7 +5,7 @@ use stellar_xdr::{
     ScSpecUdtErrorEnumV0, ScSpecUdtStructV0, ScSpecUdtUnionV0,
 };
 
-use crate::syn_ext::str_to_ident;
+use crate::syn_ext::{str_to_ident, type_name_to_ident};
 
 // IMPORTANT: The "docs" fields of spec entries are not output in Rust token
 // streams as rustdocs, because rustdocs can contain Rust code, and that code
@@ -41,7 +41,7 @@ pub fn generate_struct_with_options(
     spec: &ScSpecUdtStructV0,
     opts: &GenerateOptions,
 ) -> Result<TokenStream, GenerateError> {
-    let ident = str_to_ident(&spec.name)?;
+    let ident = type_name_to_ident(&spec.name)?;
 
     if spec.lib.len() > 0 {
         let lib_ident = str_to_ident(&spec.lib)?;
@@ -106,7 +106,7 @@ pub fn generate_union_with_options(
     spec: &ScSpecUdtUnionV0,
     opts: &GenerateOptions,
 ) -> Result<TokenStream, GenerateError> {
-    let ident = str_to_ident(&spec.name)?;
+    let ident = type_name_to_ident(&spec.name)?;
     if spec.lib.len() > 0 {
         let lib_ident = str_to_ident(&spec.lib)?;
         Ok(quote! {
@@ -156,7 +156,7 @@ pub fn generate_enum_with_options(
     spec: &ScSpecUdtEnumV0,
     opts: &GenerateOptions,
 ) -> Result<TokenStream, GenerateError> {
-    let ident = str_to_ident(&spec.name)?;
+    let ident = type_name_to_ident(&spec.name)?;
     if spec.lib.len() > 0 {
         let lib_ident = str_to_ident(&spec.lib)?;
         Ok(quote! {
@@ -193,7 +193,7 @@ pub fn generate_error_enum_with_options(
     spec: &ScSpecUdtErrorEnumV0,
     opts: &GenerateOptions,
 ) -> Result<TokenStream, GenerateError> {
-    let ident = str_to_ident(&spec.name)?;
+    let ident = type_name_to_ident(&spec.name)?;
     if spec.lib.len() > 0 {
         let lib_ident = str_to_ident(&spec.lib)?;
         Ok(quote! {
@@ -234,6 +234,8 @@ pub fn generate_event_with_options(
     spec: &ScSpecEventV0,
     opts: &GenerateOptions,
 ) -> Result<TokenStream, GenerateError> {
+    // An event is named by a symbol rather than a qualified type name, so its
+    // name is already the identifier.
     let ident = str_to_ident(&spec.name)?;
 
     if spec.lib.len() > 0 {
@@ -329,8 +331,10 @@ pub fn generate_type_ident(spec: &ScSpecTypeDef) -> Result<TokenStream, Generate
             let n = Literal::u32_unsuffixed(b.n);
             Ok(quote! { soroban_sdk::BytesN<#n> })
         }
+        // The name a reference carries qualifies the type with the module it
+        // was defined in, so only its last segment names the type itself.
         ScSpecTypeDef::Udt(u) => {
-            let ident = str_to_ident(&u.name)?;
+            let ident = type_name_to_ident(&u.name)?;
             Ok(quote! { #ident })
         }
         ScSpecTypeDef::Void => Ok(quote! { () }),

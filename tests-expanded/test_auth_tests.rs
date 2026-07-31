@@ -1163,6 +1163,12 @@ mod test_a {
                 ::core::cmp::Ordering::Equal
             }
         }
+        impl Error {
+            #[doc(hidden)]
+            pub const fn spec_type_name() -> &'static str {
+                "test_auth::test_a::auth_decline::Error"
+            }
+        }
         pub static __SPEC_XDR_TYPE_ERROR: [u8; Error::__SPEC_XDR_REF.const_xdr_len()] =
             Error::spec_xdr();
         impl Error {
@@ -1171,7 +1177,7 @@ mod test_a {
                     soroban_sdk::xdr::ScSpecUdtErrorEnumV0Ref {
                         doc: soroban_sdk::xdr::StringMRef::new(b""),
                         lib: soroban_sdk::xdr::StringMRef::new(b""),
-                        name: soroban_sdk::xdr::StringMRef::new(b"Error"),
+                        name: soroban_sdk::xdr::StringMRef::new_str(Error::spec_type_name()),
                         cases: soroban_sdk::xdr::VecMRef::new(&[
                             soroban_sdk::xdr::ScSpecUdtErrorEnumCaseV0Ref {
                                 doc: soroban_sdk::xdr::StringMRef::new(b""),
@@ -2761,6 +2767,12 @@ mod test_b {
                 ::core::cmp::Ordering::Equal
             }
         }
+        impl Error {
+            #[doc(hidden)]
+            pub const fn spec_type_name() -> &'static str {
+                "test_auth::test_b::auth_decline::Error"
+            }
+        }
         pub static __SPEC_XDR_TYPE_ERROR: [u8; Error::__SPEC_XDR_REF.const_xdr_len()] =
             Error::spec_xdr();
         impl Error {
@@ -2769,7 +2781,7 @@ mod test_b {
                     soroban_sdk::xdr::ScSpecUdtErrorEnumV0Ref {
                         doc: soroban_sdk::xdr::StringMRef::new(b""),
                         lib: soroban_sdk::xdr::StringMRef::new(b""),
-                        name: soroban_sdk::xdr::StringMRef::new(b"Error"),
+                        name: soroban_sdk::xdr::StringMRef::new_str(Error::spec_type_name()),
                         cases: soroban_sdk::xdr::VecMRef::new(&[
                             soroban_sdk::xdr::ScSpecUdtErrorEnumCaseV0Ref {
                                 doc: soroban_sdk::xdr::StringMRef::new(b""),

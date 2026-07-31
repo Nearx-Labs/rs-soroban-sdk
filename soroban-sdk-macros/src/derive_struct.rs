@@ -7,7 +7,7 @@ use stellar_xdr::{ScSpecTypeDef, ScSpecUdtStructFieldV0, ScSpecUdtStructV0, Stri
 
 use crate::{
     doc::docs_from_attrs,
-    map_type::{const_ref_string, const_ref_type_def, map_type},
+    map_type::{const_ref_string, const_ref_type_def, map_type, spec_type_name_gen},
     shaking,
 };
 
@@ -88,16 +88,20 @@ pub fn derive_type_struct(
         None
     };
 
+    // The fully qualified name the spec knows this type by, emitted for every
+    // type so that references to it from anywhere can reach it.
+    let spec_type_name = spec_type_name_gen(ident);
+
     // Generated code spec. The spec entry is rendered as the equivalent const
     // ScSpecEntryRef, which the contract crate encodes to XDR at compile time.
     let spec_gen = spec_entry.as_ref().map(|spec_entry| {
         let doc = const_ref_string(path, &spec_entry.doc);
         let lib = const_ref_string(path, &spec_entry.lib);
-        let name = const_ref_string(path, &spec_entry.name);
-        let fields = spec_entry.fields.iter().map(|f| {
+        let name = quote!(#path::xdr::StringMRef::new_str(#ident::spec_type_name()));
+        let fields = spec_entry.fields.iter().zip(field_types.iter().copied()).map(|(f, rust)| {
             let doc = const_ref_string(path, &f.doc);
             let name = const_ref_string(path, &f.name);
-            let type_ = const_ref_type_def(path, &f.type_);
+            let type_ = const_ref_type_def(path, &f.type_, Some(rust));
             quote!(#path::xdr::ScSpecUdtStructFieldV0Ref { doc: #doc, name: #name, type_: #type_ })
         });
         let spec_ref = quote! {
@@ -148,6 +152,8 @@ pub fn derive_type_struct(
 
     // Output.
     let mut output = quote! {
+        #spec_type_name
+
         #spec_gen
 
         #spec_shaking_impl

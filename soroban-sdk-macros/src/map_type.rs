@@ -308,36 +308,42 @@ pub fn map_type(t: &Type, allow_ref: bool, allow_hash: bool) -> Result<ScSpecTyp
 /// Renders a [ScSpecTypeDef] as a const expression of type
 /// `#path::xdr::ScSpecTypeDefRef`, so the containing spec entry can be encoded
 /// to XDR at compile time by the contract crate.
-pub fn const_ref_type_def(path: &Path, t: &ScSpecTypeDef) -> TokenStream2 {
+pub fn const_ref_type_def(path: &Path, t: &ScSpecTypeDef, rust: Option<&Type>) -> TokenStream2 {
     let xdr = quote!(#path::xdr);
     let variant = format_ident!("{}", t.name());
+    let args = rust.map(type_args).unwrap_or_default();
+    let arg = |i: usize| args.get(i).copied();
     // Variants that hold a value. The recursive ones sit behind a reference in
     // the Ref type, matching the Box in the owned type.
     let value = match t {
         ScSpecTypeDef::Option(o) => {
-            let value_type = const_ref_type_def(path, &o.value_type);
+            let value_type = const_ref_type_def(path, &o.value_type, arg(0));
             Some(quote!((&#xdr::ScSpecTypeOptionRef { value_type: &#value_type })))
         }
         ScSpecTypeDef::Result(r) => {
-            let ok_type = const_ref_type_def(path, &r.ok_type);
-            let error_type = const_ref_type_def(path, &r.error_type);
+            let ok_type = const_ref_type_def(path, &r.ok_type, arg(0));
+            let error_type = const_ref_type_def(path, &r.error_type, arg(1));
             Some(
                 quote!((&#xdr::ScSpecTypeResultRef { ok_type: &#ok_type, error_type: &#error_type })),
             )
         }
         ScSpecTypeDef::Vec(v) => {
-            let element_type = const_ref_type_def(path, &v.element_type);
+            let element_type = const_ref_type_def(path, &v.element_type, arg(0));
             Some(quote!((&#xdr::ScSpecTypeVecRef { element_type: &#element_type })))
         }
         ScSpecTypeDef::Map(m) => {
-            let key_type = const_ref_type_def(path, &m.key_type);
-            let value_type = const_ref_type_def(path, &m.value_type);
+            let key_type = const_ref_type_def(path, &m.key_type, arg(0));
+            let value_type = const_ref_type_def(path, &m.value_type, arg(1));
             Some(
                 quote!((&#xdr::ScSpecTypeMapRef { key_type: &#key_type, value_type: &#value_type })),
             )
         }
         ScSpecTypeDef::Tuple(t) => {
-            let value_types = t.value_types.iter().map(|t| const_ref_type_def(path, t));
+            let value_types = t
+                .value_types
+                .iter()
+                .enumerate()
+                .map(|(i, t)| const_ref_type_def(path, t, arg(i)));
             Some(
                 quote!((&#xdr::ScSpecTypeTupleRef { value_types: #xdr::VecMRef::new(&[#(#value_types),*]) })),
             )
@@ -346,14 +352,88 @@ pub fn const_ref_type_def(path: &Path, t: &ScSpecTypeDef) -> TokenStream2 {
             let n = b.n;
             Some(quote!((#xdr::ScSpecTypeBytesN { n: #n })))
         }
-        ScSpecTypeDef::Udt(u) => {
-            let name = const_ref_string(path, &u.name);
-            Some(quote!((#xdr::ScSpecTypeUdtRef { name: #name })))
-        }
+        // A reference names the type by the fully qualified name that type
+        // reports for itself, which only the referenced type can give because
+        // only its own expansion sees the module it is defined in. The Rust type
+        // the reference was mapped from is how it is reached, named as written
+        // with its path qualification and all.
+        ScSpecTypeDef::Udt(_) => Some(match rust.map(unref) {
+            Some(ty) => {
+                quote!((#xdr::ScSpecTypeUdtRef { name: #xdr::StringMRef::new_str(<#ty>::spec_type_name()) }))
+            }
+            None => quote!(
+                (compile_error!(
+                    "user-defined type reference has no Rust type to take its name from"
+                ))
+            ),
+        }),
         // All remaining variants are void.
         _ => None,
     };
     quote!(#xdr::ScSpecTypeDefRef::#variant #value)
+}
+
+/// The Rust type behind any number of references.
+fn unref(t: &Type) -> &Type {
+    match t {
+        Type::Reference(TypeReference { elem, .. }) => unref(elem),
+        _ => t,
+    }
+}
+
+/// The Rust type arguments that line up, in order, with the type arguments of
+/// the spec type [map_type] produced for `t`: the arguments of a container
+/// (`Option<T>`, `Result<T, E>`, `Vec<T>`, `Map<K, V>`) or the elements of a
+/// tuple. Empty for anything else, including the parameterized types whose
+/// arguments are not types in the spec (`BytesN<N>`, `Hash<N>`).
+fn type_args(t: &Type) -> Vec<&Type> {
+    match unref(t) {
+        Type::Tuple(TypeTuple { elems, .. }) => elems.iter().collect(),
+        Type::Path(TypePath {
+            qself: None,
+            path: Path { segments, .. },
+        }) => match segments.last() {
+            Some(PathSegment {
+                ident,
+                arguments: PathArguments::AngleBracketed(args),
+            }) if matches!(
+                &ident.unraw().to_string()[..],
+                "Option" | "Result" | "Vec" | "Map"
+            ) =>
+            {
+                args.args
+                    .iter()
+                    .filter_map(|a| match a {
+                        GenericArgument::Type(ty) => Some(ty),
+                        _ => None,
+                    })
+                    .collect()
+            }
+            _ => Vec::new(),
+        },
+        _ => Vec::new(),
+    }
+}
+
+/// Emits the `spec_type_name` const fn on a user-defined type: the name the
+/// contract spec knows it by, which is its Rust path — the module it is defined
+/// in, then its own name.
+///
+/// The module path is only known where the type is defined, and a macro cannot
+/// see it, so `module_path!` is emitted for the compiler to expand in place
+/// rather than resolved here. Emitted for every user-defined type, even one
+/// whose spec is not exported, because a reference to it from anywhere needs the
+/// name.
+pub fn spec_type_name_gen(ident: &Ident) -> TokenStream2 {
+    let name = Literal::string(&ident.unraw().to_string());
+    quote! {
+        impl #ident {
+            #[doc(hidden)]
+            pub const fn spec_type_name() -> &'static str {
+                ::core::concat!(::core::module_path!(), "::", #name)
+            }
+        }
+    }
 }
 
 /// Renders a [StringM] as a const expression of type `#path::xdr::StringMRef`.
@@ -521,17 +601,22 @@ mod test {
         );
     }
 
+    /// A name that on its own exceeds the limit on a user-defined type's name is
+    /// rejected here. A name that fits but whose qualified form does not is
+    /// caught at const evaluation instead, because the module that qualifies it
+    /// is not known here.
     #[test]
     fn test_is_mapped_type_udt_unique_xdr_error() {
         let input: DeriveInput = parse_quote!(
-            struct MyTypeIsOverSixtyCharactersLongAndShouldFailToCompileDueToThat {
+            struct MyTypeIsOverTwoHundredAndFiftySixCharactersLongAndShouldFailToCompileBecauseTheContractSpecTypeNameLimitIsTwoHundredAndFiftySixAndANameCanOnlyExceedThatLimitIfItKeepsGoingOnAndOnWithMoreWordsThanAnyReasonableTypeNameWouldEverNeedUntilItFinallyPassesTheLimit
+            {
                 pub key: [u8; 32],
             }
         );
         let err = is_mapped_type_udt(&input.ident, &input.generics).unwrap_err();
         assert_eq!(
             err.to_string(),
-            "type `MyTypeIsOverSixtyCharactersLongAndShouldFailToCompileDueToThat` cannot be used in XDR spec: xdr value max length exceeded"
+            "type `MyTypeIsOverTwoHundredAndFiftySixCharactersLongAndShouldFailToCompileBecauseTheContractSpecTypeNameLimitIsTwoHundredAndFiftySixAndANameCanOnlyExceedThatLimitIfItKeepsGoingOnAndOnWithMoreWordsThanAnyReasonableTypeNameWouldEverNeedUntilItFinallyPassesTheLimit` cannot be used in XDR spec: xdr value max length exceeded"
         );
     }
 

@@ -47,6 +47,12 @@ impl ::core::cmp::PartialEq for AttributeType {
         self.value == other.value
     }
 }
+impl AttributeType {
+    #[doc(hidden)]
+    pub const fn spec_type_name() -> &'static str {
+        "test_attributes::AttributeType"
+    }
+}
 #[link_section = "contractspecv0"]
 pub static __SPEC_XDR_TYPE_ATTRIBUTETYPE: [u8; AttributeType::__SPEC_XDR_REF.const_xdr_len()] =
     AttributeType::spec_xdr();
@@ -55,7 +61,7 @@ impl AttributeType {
         soroban_sdk::xdr::ScSpecEntryRef::UdtStructV0(soroban_sdk::xdr::ScSpecUdtStructV0Ref {
             doc: soroban_sdk::xdr::StringMRef::new(b""),
             lib: soroban_sdk::xdr::StringMRef::new(b""),
-            name: soroban_sdk::xdr::StringMRef::new(b"AttributeType"),
+            name: soroban_sdk::xdr::StringMRef::new_str(AttributeType::spec_type_name()),
             fields: soroban_sdk::xdr::VecMRef::new(&[
                 soroban_sdk::xdr::ScSpecUdtStructFieldV0Ref {
                     doc: soroban_sdk::xdr::StringMRef::new(b""),
@@ -454,7 +460,9 @@ impl Contract {
                 name: soroban_sdk::xdr::StringMRef::new(b"value"),
                 type_: soroban_sdk::xdr::ScSpecTypeDefRef::Udt(
                     soroban_sdk::xdr::ScSpecTypeUdtRef {
-                        name: soroban_sdk::xdr::StringMRef::new(b"AttributeType"),
+                        name: soroban_sdk::xdr::StringMRef::new_str(
+                            <AttributeType>::spec_type_name(),
+                        ),
                     },
                 ),
             }]),

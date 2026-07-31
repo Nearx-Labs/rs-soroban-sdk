@@ -82,7 +82,7 @@ impl Contract {
             ]),
             outputs: soroban_sdk::xdr::VecMRef::new(&[soroban_sdk::xdr::ScSpecTypeDefRef::Udt(
                 soroban_sdk::xdr::ScSpecTypeUdtRef {
-                    name: soroban_sdk::xdr::StringMRef::new(b"StructA"),
+                    name: soroban_sdk::xdr::StringMRef::new_str(<StructA>::spec_type_name()),
                 },
             )]),
         });
@@ -125,7 +125,7 @@ impl Contract {
             ]),
             outputs: soroban_sdk::xdr::VecMRef::new(&[soroban_sdk::xdr::ScSpecTypeDefRef::Udt(
                 soroban_sdk::xdr::ScSpecTypeUdtRef {
-                    name: soroban_sdk::xdr::StringMRef::new(b"StructTupleA"),
+                    name: soroban_sdk::xdr::StringMRef::new_str(<StructTupleA>::spec_type_name()),
                 },
             )]),
         });
@@ -154,7 +154,7 @@ impl Contract {
             inputs: soroban_sdk::xdr::VecMRef::new(&[]),
             outputs: soroban_sdk::xdr::VecMRef::new(&[soroban_sdk::xdr::ScSpecTypeDefRef::Udt(
                 soroban_sdk::xdr::ScSpecTypeUdtRef {
-                    name: soroban_sdk::xdr::StringMRef::new(b"EnumA"),
+                    name: soroban_sdk::xdr::StringMRef::new_str(<EnumA>::spec_type_name()),
                 },
             )]),
         });
@@ -184,7 +184,7 @@ impl Contract {
             inputs: soroban_sdk::xdr::VecMRef::new(&[]),
             outputs: soroban_sdk::xdr::VecMRef::new(&[soroban_sdk::xdr::ScSpecTypeDefRef::Udt(
                 soroban_sdk::xdr::ScSpecTypeUdtRef {
-                    name: soroban_sdk::xdr::StringMRef::new(b"EnumIntA"),
+                    name: soroban_sdk::xdr::StringMRef::new_str(<EnumIntA>::spec_type_name()),
                 },
             )]),
         });
@@ -220,7 +220,7 @@ impl Contract {
                     ok_type: &soroban_sdk::xdr::ScSpecTypeDefRef::U32,
                     error_type: &soroban_sdk::xdr::ScSpecTypeDefRef::Udt(
                         soroban_sdk::xdr::ScSpecTypeUdtRef {
-                            name: soroban_sdk::xdr::StringMRef::new(b"ErrorA"),
+                            name: soroban_sdk::xdr::StringMRef::new_str(<ErrorA>::spec_type_name()),
                         },
                     ),
                 },

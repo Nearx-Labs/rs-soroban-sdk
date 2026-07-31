@@ -141,6 +141,12 @@ pub enum DataKey {
     Temp(u32),
     Instance(u32),
 }
+impl DataKey {
+    #[doc(hidden)]
+    pub const fn spec_type_name() -> &'static str {
+        "test_constructor::DataKey"
+    }
+}
 pub static __SPEC_XDR_TYPE_DATAKEY: [u8; DataKey::__SPEC_XDR_REF.const_xdr_len()] =
     DataKey::spec_xdr();
 impl DataKey {
@@ -148,7 +154,7 @@ impl DataKey {
         soroban_sdk::xdr::ScSpecEntryRef::UdtUnionV0(soroban_sdk::xdr::ScSpecUdtUnionV0Ref {
             doc: soroban_sdk::xdr::StringMRef::new(b""),
             lib: soroban_sdk::xdr::StringMRef::new(b""),
-            name: soroban_sdk::xdr::StringMRef::new(b"DataKey"),
+            name: soroban_sdk::xdr::StringMRef::new_str(DataKey::spec_type_name()),
             cases: soroban_sdk::xdr::VecMRef::new(&[
                 soroban_sdk::xdr::ScSpecUdtUnionCaseV0Ref::TupleV0(
                     soroban_sdk::xdr::ScSpecUdtUnionCaseTupleV0Ref {
@@ -811,7 +817,7 @@ impl Contract {
                 name: soroban_sdk::xdr::StringMRef::new(b"key"),
                 type_: soroban_sdk::xdr::ScSpecTypeDefRef::Udt(
                     soroban_sdk::xdr::ScSpecTypeUdtRef {
-                        name: soroban_sdk::xdr::StringMRef::new(b"DataKey"),
+                        name: soroban_sdk::xdr::StringMRef::new_str(<DataKey>::spec_type_name()),
                     },
                 ),
             }]),

@@ -33,13 +33,19 @@ impl ::core::cmp::PartialEq for Value {
         self.value == other.value
     }
 }
+impl Value {
+    #[doc(hidden)]
+    pub const fn spec_type_name() -> &'static str {
+        "test_workspace_lib::Value"
+    }
+}
 pub static __SPEC_XDR_TYPE_VALUE: [u8; Value::__SPEC_XDR_REF.const_xdr_len()] = Value::spec_xdr();
 impl Value {
     const __SPEC_XDR_REF: soroban_sdk::xdr::ScSpecEntryRef<'static> =
         soroban_sdk::xdr::ScSpecEntryRef::UdtStructV0(soroban_sdk::xdr::ScSpecUdtStructV0Ref {
             doc: soroban_sdk::xdr::StringMRef::new(b""),
             lib: soroban_sdk::xdr::StringMRef::new(b""),
-            name: soroban_sdk::xdr::StringMRef::new(b"Value"),
+            name: soroban_sdk::xdr::StringMRef::new_str(Value::spec_type_name()),
             fields: soroban_sdk::xdr::VecMRef::new(&[
                 soroban_sdk::xdr::ScSpecUdtStructFieldV0Ref {
                     doc: soroban_sdk::xdr::StringMRef::new(b""),

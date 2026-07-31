@@ -208,13 +208,21 @@ fn test_spec_shaking_v2() {
 }
 
 /// Extract the name from a non-function spec entry.
+///
+/// A user-defined type's name in the spec qualifies it with the module it was
+/// defined in, so the last segment is the type's own name, which is what the
+/// assertions below name it by. An event is named by a symbol and is not
+/// qualified, so it is unaffected.
 fn entry_name(entry: &ScSpecEntry) -> Option<std::string::String> {
-    match entry {
-        ScSpecEntry::FunctionV0(_) => None,
-        ScSpecEntry::UdtStructV0(s) => Some(s.name.to_utf8_string_lossy()),
-        ScSpecEntry::UdtUnionV0(u) => Some(u.name.to_utf8_string_lossy()),
-        ScSpecEntry::UdtEnumV0(e) => Some(e.name.to_utf8_string_lossy()),
-        ScSpecEntry::UdtErrorEnumV0(e) => Some(e.name.to_utf8_string_lossy()),
-        ScSpecEntry::EventV0(e) => Some(e.name.to_utf8_string_lossy()),
-    }
+    let name = match entry {
+        ScSpecEntry::FunctionV0(_) => return None,
+        ScSpecEntry::UdtStructV0(s) => s.name.to_utf8_string_lossy(),
+        ScSpecEntry::UdtUnionV0(u) => u.name.to_utf8_string_lossy(),
+        ScSpecEntry::UdtEnumV0(e) => e.name.to_utf8_string_lossy(),
+        ScSpecEntry::UdtErrorEnumV0(e) => e.name.to_utf8_string_lossy(),
+        ScSpecEntry::EventV0(e) => e.name.to_utf8_string_lossy(),
+    };
+    Some(std::string::String::from(
+        name.rsplit("::").next().unwrap_or(&name),
+    ))
 }

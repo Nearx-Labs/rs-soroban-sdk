@@ -45,6 +45,12 @@ impl ::core::cmp::PartialEq for Flag {
         __self_discr == __arg1_discr
     }
 }
+impl Flag {
+    #[doc(hidden)]
+    pub const fn spec_type_name() -> &'static str {
+        "test_errors::Flag"
+    }
+}
 #[link_section = "contractspecv0"]
 pub static __SPEC_XDR_TYPE_FLAG: [u8; Flag::__SPEC_XDR_REF.const_xdr_len()] = Flag::spec_xdr();
 impl Flag {
@@ -52,7 +58,7 @@ impl Flag {
         soroban_sdk::xdr::ScSpecEntryRef::UdtEnumV0(soroban_sdk::xdr::ScSpecUdtEnumV0Ref {
             doc: soroban_sdk::xdr::StringMRef::new(b""),
             lib: soroban_sdk::xdr::StringMRef::new(b""),
-            name: soroban_sdk::xdr::StringMRef::new(b"Flag"),
+            name: soroban_sdk::xdr::StringMRef::new_str(Flag::spec_type_name()),
             cases: soroban_sdk::xdr::VecMRef::new(&[
                 soroban_sdk::xdr::ScSpecUdtEnumCaseV0Ref {
                     doc: soroban_sdk::xdr::StringMRef::new(b""),
@@ -181,6 +187,12 @@ impl ::core::cmp::PartialEq for Error {
         true
     }
 }
+impl Error {
+    #[doc(hidden)]
+    pub const fn spec_type_name() -> &'static str {
+        "test_errors::Error"
+    }
+}
 #[link_section = "contractspecv0"]
 pub static __SPEC_XDR_TYPE_ERROR: [u8; Error::__SPEC_XDR_REF.const_xdr_len()] = Error::spec_xdr();
 impl Error {
@@ -189,7 +201,7 @@ impl Error {
             soroban_sdk::xdr::ScSpecUdtErrorEnumV0Ref {
                 doc: soroban_sdk::xdr::StringMRef::new(b""),
                 lib: soroban_sdk::xdr::StringMRef::new(b""),
-                name: soroban_sdk::xdr::StringMRef::new(b"Error"),
+                name: soroban_sdk::xdr::StringMRef::new_str(Error::spec_type_name()),
                 cases: soroban_sdk::xdr::VecMRef::new(&[
                     soroban_sdk::xdr::ScSpecUdtErrorEnumCaseV0Ref {
                         doc: soroban_sdk::xdr::StringMRef::new(b""),
@@ -387,7 +399,7 @@ impl Contract {
                 name: soroban_sdk::xdr::StringMRef::new(b"flag"),
                 type_: soroban_sdk::xdr::ScSpecTypeDefRef::Udt(
                     soroban_sdk::xdr::ScSpecTypeUdtRef {
-                        name: soroban_sdk::xdr::StringMRef::new(b"Flag"),
+                        name: soroban_sdk::xdr::StringMRef::new_str(<Flag>::spec_type_name()),
                     },
                 ),
             }]),

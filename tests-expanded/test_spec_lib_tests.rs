@@ -47,6 +47,12 @@ impl ::core::cmp::PartialEq for StructA {
         self.f1 == other.f1 && self.f2 == other.f2
     }
 }
+impl StructA {
+    #[doc(hidden)]
+    pub const fn spec_type_name() -> &'static str {
+        "test_spec_lib::StructA"
+    }
+}
 pub static __SPEC_XDR_TYPE_STRUCTA: [u8; StructA::__SPEC_XDR_REF.const_xdr_len()] =
     StructA::spec_xdr();
 impl StructA {
@@ -54,7 +60,7 @@ impl StructA {
         soroban_sdk::xdr::ScSpecEntryRef::UdtStructV0(soroban_sdk::xdr::ScSpecUdtStructV0Ref {
             doc: soroban_sdk::xdr::StringMRef::new(b""),
             lib: soroban_sdk::xdr::StringMRef::new(b""),
-            name: soroban_sdk::xdr::StringMRef::new(b"StructA"),
+            name: soroban_sdk::xdr::StringMRef::new_str(StructA::spec_type_name()),
             fields: soroban_sdk::xdr::VecMRef::new(&[
                 soroban_sdk::xdr::ScSpecUdtStructFieldV0Ref {
                     doc: soroban_sdk::xdr::StringMRef::new(b""),
@@ -483,6 +489,12 @@ impl ::core::cmp::PartialEq for StructB {
         self.f1 == other.f1 && self.f2 == other.f2
     }
 }
+impl StructB {
+    #[doc(hidden)]
+    pub const fn spec_type_name() -> &'static str {
+        "test_spec_lib::StructB"
+    }
+}
 pub static __SPEC_XDR_TYPE_STRUCTB: [u8; StructB::__SPEC_XDR_REF.const_xdr_len()] =
     StructB::spec_xdr();
 impl StructB {
@@ -490,7 +502,7 @@ impl StructB {
         soroban_sdk::xdr::ScSpecEntryRef::UdtStructV0(soroban_sdk::xdr::ScSpecUdtStructV0Ref {
             doc: soroban_sdk::xdr::StringMRef::new(b""),
             lib: soroban_sdk::xdr::StringMRef::new(b""),
-            name: soroban_sdk::xdr::StringMRef::new(b"StructB"),
+            name: soroban_sdk::xdr::StringMRef::new_str(StructB::spec_type_name()),
             fields: soroban_sdk::xdr::VecMRef::new(&[
                 soroban_sdk::xdr::ScSpecUdtStructFieldV0Ref {
                     doc: soroban_sdk::xdr::StringMRef::new(b""),
@@ -919,6 +931,12 @@ impl ::core::cmp::PartialEq for StructC {
         self.f1 == other.f1 && self.f2 == other.f2
     }
 }
+impl StructC {
+    #[doc(hidden)]
+    pub const fn spec_type_name() -> &'static str {
+        "test_spec_lib::StructC"
+    }
+}
 pub static __SPEC_XDR_TYPE_STRUCTC: [u8; StructC::__SPEC_XDR_REF.const_xdr_len()] =
     StructC::spec_xdr();
 impl StructC {
@@ -926,7 +944,7 @@ impl StructC {
         soroban_sdk::xdr::ScSpecEntryRef::UdtStructV0(soroban_sdk::xdr::ScSpecUdtStructV0Ref {
             doc: soroban_sdk::xdr::StringMRef::new(b""),
             lib: soroban_sdk::xdr::StringMRef::new(b""),
-            name: soroban_sdk::xdr::StringMRef::new(b"StructC"),
+            name: soroban_sdk::xdr::StringMRef::new_str(StructC::spec_type_name()),
             fields: soroban_sdk::xdr::VecMRef::new(&[
                 soroban_sdk::xdr::ScSpecUdtStructFieldV0Ref {
                     doc: soroban_sdk::xdr::StringMRef::new(b""),
@@ -1355,6 +1373,12 @@ impl ::core::cmp::PartialEq for StructTupleA {
         self.0 == other.0 && self.1 == other.1
     }
 }
+impl StructTupleA {
+    #[doc(hidden)]
+    pub const fn spec_type_name() -> &'static str {
+        "test_spec_lib::StructTupleA"
+    }
+}
 pub static __SPEC_XDR_TYPE_STRUCTTUPLEA: [u8; StructTupleA::__SPEC_XDR_REF.const_xdr_len()] =
     StructTupleA::spec_xdr();
 impl StructTupleA {
@@ -1362,7 +1386,7 @@ impl StructTupleA {
         soroban_sdk::xdr::ScSpecEntryRef::UdtStructV0(soroban_sdk::xdr::ScSpecUdtStructV0Ref {
             doc: soroban_sdk::xdr::StringMRef::new(b""),
             lib: soroban_sdk::xdr::StringMRef::new(b""),
-            name: soroban_sdk::xdr::StringMRef::new(b"StructTupleA"),
+            name: soroban_sdk::xdr::StringMRef::new_str(StructTupleA::spec_type_name()),
             fields: soroban_sdk::xdr::VecMRef::new(&[
                 soroban_sdk::xdr::ScSpecUdtStructFieldV0Ref {
                     doc: soroban_sdk::xdr::StringMRef::new(b""),
@@ -1751,6 +1775,12 @@ impl ::core::cmp::PartialEq for StructTupleB {
         self.0 == other.0 && self.1 == other.1
     }
 }
+impl StructTupleB {
+    #[doc(hidden)]
+    pub const fn spec_type_name() -> &'static str {
+        "test_spec_lib::StructTupleB"
+    }
+}
 pub static __SPEC_XDR_TYPE_STRUCTTUPLEB: [u8; StructTupleB::__SPEC_XDR_REF.const_xdr_len()] =
     StructTupleB::spec_xdr();
 impl StructTupleB {
@@ -1758,7 +1788,7 @@ impl StructTupleB {
         soroban_sdk::xdr::ScSpecEntryRef::UdtStructV0(soroban_sdk::xdr::ScSpecUdtStructV0Ref {
             doc: soroban_sdk::xdr::StringMRef::new(b""),
             lib: soroban_sdk::xdr::StringMRef::new(b""),
-            name: soroban_sdk::xdr::StringMRef::new(b"StructTupleB"),
+            name: soroban_sdk::xdr::StringMRef::new_str(StructTupleB::spec_type_name()),
             fields: soroban_sdk::xdr::VecMRef::new(&[
                 soroban_sdk::xdr::ScSpecUdtStructFieldV0Ref {
                     doc: soroban_sdk::xdr::StringMRef::new(b""),
@@ -2148,6 +2178,12 @@ impl ::core::cmp::PartialEq for StructTupleC {
         self.1 == other.1 && self.0 == other.0
     }
 }
+impl StructTupleC {
+    #[doc(hidden)]
+    pub const fn spec_type_name() -> &'static str {
+        "test_spec_lib::StructTupleC"
+    }
+}
 pub static __SPEC_XDR_TYPE_STRUCTTUPLEC: [u8; StructTupleC::__SPEC_XDR_REF.const_xdr_len()] =
     StructTupleC::spec_xdr();
 impl StructTupleC {
@@ -2155,7 +2191,7 @@ impl StructTupleC {
         soroban_sdk::xdr::ScSpecEntryRef::UdtStructV0(soroban_sdk::xdr::ScSpecUdtStructV0Ref {
             doc: soroban_sdk::xdr::StringMRef::new(b""),
             lib: soroban_sdk::xdr::StringMRef::new(b""),
-            name: soroban_sdk::xdr::StringMRef::new(b"StructTupleC"),
+            name: soroban_sdk::xdr::StringMRef::new_str(StructTupleC::spec_type_name()),
             fields: soroban_sdk::xdr::VecMRef::new(&[
                 soroban_sdk::xdr::ScSpecUdtStructFieldV0Ref {
                     doc: soroban_sdk::xdr::StringMRef::new(b""),
@@ -2556,13 +2592,19 @@ impl ::core::cmp::PartialEq for EnumA {
         __self_discr == __arg1_discr
     }
 }
+impl EnumA {
+    #[doc(hidden)]
+    pub const fn spec_type_name() -> &'static str {
+        "test_spec_lib::EnumA"
+    }
+}
 pub static __SPEC_XDR_TYPE_ENUMA: [u8; EnumA::__SPEC_XDR_REF.const_xdr_len()] = EnumA::spec_xdr();
 impl EnumA {
     const __SPEC_XDR_REF: soroban_sdk::xdr::ScSpecEntryRef<'static> =
         soroban_sdk::xdr::ScSpecEntryRef::UdtUnionV0(soroban_sdk::xdr::ScSpecUdtUnionV0Ref {
             doc: soroban_sdk::xdr::StringMRef::new(b""),
             lib: soroban_sdk::xdr::StringMRef::new(b""),
-            name: soroban_sdk::xdr::StringMRef::new(b"EnumA"),
+            name: soroban_sdk::xdr::StringMRef::new_str(EnumA::spec_type_name()),
             cases: soroban_sdk::xdr::VecMRef::new(&[
                 soroban_sdk::xdr::ScSpecUdtUnionCaseV0Ref::VoidV0(
                     soroban_sdk::xdr::ScSpecUdtUnionCaseVoidV0Ref {
@@ -3056,13 +3098,19 @@ impl ::core::cmp::PartialEq for EnumB {
             }
     }
 }
+impl EnumB {
+    #[doc(hidden)]
+    pub const fn spec_type_name() -> &'static str {
+        "test_spec_lib::EnumB"
+    }
+}
 pub static __SPEC_XDR_TYPE_ENUMB: [u8; EnumB::__SPEC_XDR_REF.const_xdr_len()] = EnumB::spec_xdr();
 impl EnumB {
     const __SPEC_XDR_REF: soroban_sdk::xdr::ScSpecEntryRef<'static> =
         soroban_sdk::xdr::ScSpecEntryRef::UdtUnionV0(soroban_sdk::xdr::ScSpecUdtUnionV0Ref {
             doc: soroban_sdk::xdr::StringMRef::new(b""),
             lib: soroban_sdk::xdr::StringMRef::new(b""),
-            name: soroban_sdk::xdr::StringMRef::new(b"EnumB"),
+            name: soroban_sdk::xdr::StringMRef::new_str(EnumB::spec_type_name()),
             cases: soroban_sdk::xdr::VecMRef::new(&[
                 soroban_sdk::xdr::ScSpecUdtUnionCaseV0Ref::VoidV0(
                     soroban_sdk::xdr::ScSpecUdtUnionCaseVoidV0Ref {
@@ -3685,13 +3733,19 @@ impl ::core::cmp::PartialEq for EnumC {
             }
     }
 }
+impl EnumC {
+    #[doc(hidden)]
+    pub const fn spec_type_name() -> &'static str {
+        "test_spec_lib::EnumC"
+    }
+}
 pub static __SPEC_XDR_TYPE_ENUMC: [u8; EnumC::__SPEC_XDR_REF.const_xdr_len()] = EnumC::spec_xdr();
 impl EnumC {
     const __SPEC_XDR_REF: soroban_sdk::xdr::ScSpecEntryRef<'static> =
         soroban_sdk::xdr::ScSpecEntryRef::UdtUnionV0(soroban_sdk::xdr::ScSpecUdtUnionV0Ref {
             doc: soroban_sdk::xdr::StringMRef::new(b""),
             lib: soroban_sdk::xdr::StringMRef::new(b""),
-            name: soroban_sdk::xdr::StringMRef::new(b"EnumC"),
+            name: soroban_sdk::xdr::StringMRef::new_str(EnumC::spec_type_name()),
             cases: soroban_sdk::xdr::VecMRef::new(&[
                 soroban_sdk::xdr::ScSpecUdtUnionCaseV0Ref::VoidV0(
                     soroban_sdk::xdr::ScSpecUdtUnionCaseVoidV0Ref {
@@ -3706,7 +3760,9 @@ impl EnumC {
                         type_: soroban_sdk::xdr::VecMRef::new(&[
                             soroban_sdk::xdr::ScSpecTypeDefRef::Udt(
                                 soroban_sdk::xdr::ScSpecTypeUdtRef {
-                                    name: soroban_sdk::xdr::StringMRef::new(b"StructA"),
+                                    name: soroban_sdk::xdr::StringMRef::new_str(
+                                        <StructA>::spec_type_name(),
+                                    ),
                                 },
                             ),
                         ]),
@@ -3719,7 +3775,9 @@ impl EnumC {
                         type_: soroban_sdk::xdr::VecMRef::new(&[
                             soroban_sdk::xdr::ScSpecTypeDefRef::Udt(
                                 soroban_sdk::xdr::ScSpecTypeUdtRef {
-                                    name: soroban_sdk::xdr::StringMRef::new(b"StructTupleA"),
+                                    name: soroban_sdk::xdr::StringMRef::new_str(
+                                        <StructTupleA>::spec_type_name(),
+                                    ),
                                 },
                             ),
                         ]),
@@ -4272,6 +4330,12 @@ impl ::core::cmp::PartialEq for EnumIntA {
         __self_discr == __arg1_discr
     }
 }
+impl EnumIntA {
+    #[doc(hidden)]
+    pub const fn spec_type_name() -> &'static str {
+        "test_spec_lib::EnumIntA"
+    }
+}
 pub static __SPEC_XDR_TYPE_ENUMINTA: [u8; EnumIntA::__SPEC_XDR_REF.const_xdr_len()] =
     EnumIntA::spec_xdr();
 impl EnumIntA {
@@ -4279,7 +4343,7 @@ impl EnumIntA {
         soroban_sdk::xdr::ScSpecEntryRef::UdtEnumV0(soroban_sdk::xdr::ScSpecUdtEnumV0Ref {
             doc: soroban_sdk::xdr::StringMRef::new(b""),
             lib: soroban_sdk::xdr::StringMRef::new(b""),
-            name: soroban_sdk::xdr::StringMRef::new(b"EnumIntA"),
+            name: soroban_sdk::xdr::StringMRef::new_str(EnumIntA::spec_type_name()),
             cases: soroban_sdk::xdr::VecMRef::new(&[
                 soroban_sdk::xdr::ScSpecUdtEnumCaseV0Ref {
                     doc: soroban_sdk::xdr::StringMRef::new(b""),
@@ -4643,6 +4707,12 @@ impl ::core::cmp::PartialEq for EnumIntB {
         __self_discr == __arg1_discr
     }
 }
+impl EnumIntB {
+    #[doc(hidden)]
+    pub const fn spec_type_name() -> &'static str {
+        "test_spec_lib::EnumIntB"
+    }
+}
 pub static __SPEC_XDR_TYPE_ENUMINTB: [u8; EnumIntB::__SPEC_XDR_REF.const_xdr_len()] =
     EnumIntB::spec_xdr();
 impl EnumIntB {
@@ -4650,7 +4720,7 @@ impl EnumIntB {
         soroban_sdk::xdr::ScSpecEntryRef::UdtEnumV0(soroban_sdk::xdr::ScSpecUdtEnumV0Ref {
             doc: soroban_sdk::xdr::StringMRef::new(b""),
             lib: soroban_sdk::xdr::StringMRef::new(b""),
-            name: soroban_sdk::xdr::StringMRef::new(b"EnumIntB"),
+            name: soroban_sdk::xdr::StringMRef::new_str(EnumIntB::spec_type_name()),
             cases: soroban_sdk::xdr::VecMRef::new(&[
                 soroban_sdk::xdr::ScSpecUdtEnumCaseV0Ref {
                     doc: soroban_sdk::xdr::StringMRef::new(b""),
@@ -5014,6 +5084,12 @@ impl ::core::cmp::PartialEq for EnumIntC {
         __self_discr == __arg1_discr
     }
 }
+impl EnumIntC {
+    #[doc(hidden)]
+    pub const fn spec_type_name() -> &'static str {
+        "test_spec_lib::EnumIntC"
+    }
+}
 pub static __SPEC_XDR_TYPE_ENUMINTC: [u8; EnumIntC::__SPEC_XDR_REF.const_xdr_len()] =
     EnumIntC::spec_xdr();
 impl EnumIntC {
@@ -5021,7 +5097,7 @@ impl EnumIntC {
         soroban_sdk::xdr::ScSpecEntryRef::UdtEnumV0(soroban_sdk::xdr::ScSpecUdtEnumV0Ref {
             doc: soroban_sdk::xdr::StringMRef::new(b""),
             lib: soroban_sdk::xdr::StringMRef::new(b""),
-            name: soroban_sdk::xdr::StringMRef::new(b"EnumIntC"),
+            name: soroban_sdk::xdr::StringMRef::new_str(EnumIntC::spec_type_name()),
             cases: soroban_sdk::xdr::VecMRef::new(&[
                 soroban_sdk::xdr::ScSpecUdtEnumCaseV0Ref {
                     doc: soroban_sdk::xdr::StringMRef::new(b""),
@@ -5385,6 +5461,12 @@ impl ::core::cmp::PartialEq for ErrorA {
         __self_discr == __arg1_discr
     }
 }
+impl ErrorA {
+    #[doc(hidden)]
+    pub const fn spec_type_name() -> &'static str {
+        "test_spec_lib::ErrorA"
+    }
+}
 pub static __SPEC_XDR_TYPE_ERRORA: [u8; ErrorA::__SPEC_XDR_REF.const_xdr_len()] =
     ErrorA::spec_xdr();
 impl ErrorA {
@@ -5393,7 +5475,7 @@ impl ErrorA {
             soroban_sdk::xdr::ScSpecUdtErrorEnumV0Ref {
                 doc: soroban_sdk::xdr::StringMRef::new(b""),
                 lib: soroban_sdk::xdr::StringMRef::new(b""),
-                name: soroban_sdk::xdr::StringMRef::new(b"ErrorA"),
+                name: soroban_sdk::xdr::StringMRef::new_str(ErrorA::spec_type_name()),
                 cases: soroban_sdk::xdr::VecMRef::new(&[
                     soroban_sdk::xdr::ScSpecUdtErrorEnumCaseV0Ref {
                         doc: soroban_sdk::xdr::StringMRef::new(b""),
@@ -5583,6 +5665,12 @@ impl ::core::cmp::PartialEq for ErrorB {
         __self_discr == __arg1_discr
     }
 }
+impl ErrorB {
+    #[doc(hidden)]
+    pub const fn spec_type_name() -> &'static str {
+        "test_spec_lib::ErrorB"
+    }
+}
 pub static __SPEC_XDR_TYPE_ERRORB: [u8; ErrorB::__SPEC_XDR_REF.const_xdr_len()] =
     ErrorB::spec_xdr();
 impl ErrorB {
@@ -5591,7 +5679,7 @@ impl ErrorB {
             soroban_sdk::xdr::ScSpecUdtErrorEnumV0Ref {
                 doc: soroban_sdk::xdr::StringMRef::new(b""),
                 lib: soroban_sdk::xdr::StringMRef::new(b""),
-                name: soroban_sdk::xdr::StringMRef::new(b"ErrorB"),
+                name: soroban_sdk::xdr::StringMRef::new_str(ErrorB::spec_type_name()),
                 cases: soroban_sdk::xdr::VecMRef::new(&[
                     soroban_sdk::xdr::ScSpecUdtErrorEnumCaseV0Ref {
                         doc: soroban_sdk::xdr::StringMRef::new(b""),
@@ -5781,6 +5869,12 @@ impl ::core::cmp::PartialEq for ErrorC {
         __self_discr == __arg1_discr
     }
 }
+impl ErrorC {
+    #[doc(hidden)]
+    pub const fn spec_type_name() -> &'static str {
+        "test_spec_lib::ErrorC"
+    }
+}
 pub static __SPEC_XDR_TYPE_ERRORC: [u8; ErrorC::__SPEC_XDR_REF.const_xdr_len()] =
     ErrorC::spec_xdr();
 impl ErrorC {
@@ -5789,7 +5883,7 @@ impl ErrorC {
             soroban_sdk::xdr::ScSpecUdtErrorEnumV0Ref {
                 doc: soroban_sdk::xdr::StringMRef::new(b""),
                 lib: soroban_sdk::xdr::StringMRef::new(b""),
-                name: soroban_sdk::xdr::StringMRef::new(b"ErrorC"),
+                name: soroban_sdk::xdr::StringMRef::new_str(ErrorC::spec_type_name()),
                 cases: soroban_sdk::xdr::VecMRef::new(&[
                     soroban_sdk::xdr::ScSpecUdtErrorEnumCaseV0Ref {
                         doc: soroban_sdk::xdr::StringMRef::new(b""),

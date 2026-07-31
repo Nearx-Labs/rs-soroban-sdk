@@ -6,7 +6,11 @@ use syn::{
     ext::IdentExt as _, spanned::Spanned, Attribute, DataEnum, Error, ExprLit, Ident, Lit, Path,
 };
 
-use crate::{doc::docs_from_attrs, map_type::const_ref_string, shaking};
+use crate::{
+    doc::docs_from_attrs,
+    map_type::{const_ref_string, spec_type_name_gen},
+    shaking,
+};
 
 pub fn derive_type_error_enum_int(
     path: &Path,
@@ -76,12 +80,16 @@ pub fn derive_type_error_enum_int(
         None
     };
 
+    // The fully qualified name the spec knows this type by, emitted for every
+    // type so that references to it from anywhere can reach it.
+    let spec_type_name = spec_type_name_gen(enum_ident);
+
     // Generated code spec. The spec entry is rendered as the equivalent const
     // ScSpecEntryRef, which the contract crate encodes to XDR at compile time.
     let spec_gen = spec_entry.as_ref().map(|spec_entry| {
         let doc = const_ref_string(path, &spec_entry.doc);
         let lib = const_ref_string(path, &spec_entry.lib);
-        let name = const_ref_string(path, &spec_entry.name);
+        let name = quote!(#path::xdr::StringMRef::new_str(#enum_ident::spec_type_name()));
         let cases = spec_entry.cases.iter().map(|c| {
             let doc = const_ref_string(path, &c.doc);
             let name = const_ref_string(path, &c.name);
@@ -136,6 +144,8 @@ pub fn derive_type_error_enum_int(
 
     // Output.
     quote! {
+        #spec_type_name
+
         #spec_gen
 
         #spec_shaking_impl
